@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TaskRx": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "NODE_OPTIONS": "--force-node-api-uncaught-exceptions-policy=true"
+      }
+    }
+  }
+}

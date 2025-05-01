@@ -1,0 +1,309 @@
+{
+  "Tasks": [
+    {
+      "Id": "Editor-NotePad++",
+      "Group": "Editor",
+      "Hidden": false,
+      "Default": true,
+      "Name": "Notepad++",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install Notepad++.Notepad++",
+      "PostTask": []
+    },
+    {
+      "Id": "Editor-SlickEdit",
+      "Group": "Editor",
+      "Hidden": false,
+      "Default": false,
+      "Name": "SlickEdit V14",
+      "Command": "cmd.exe",
+      "Arguments": "/c InstallSlickEdit.exe",
+      "PostTask": []
+    },
+    {
+      "Id": "Editor-VSCode",
+      "Group": "Editor",
+      "Hidden": false,
+      "Default": true,
+      "Name": "Visual Studio Code",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install Microsoft.VisualStudioCode",
+      "PostTask": [
+        {
+          "Id": "VSCode-C++",
+          "Hidden": false,
+          "Default": true,
+          "Name": "C/C++ Extensions",
+          "Command": "code",
+          "Arguments": "--install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack ms-vscode.cpptools-themes"
+        },
+        {
+          "Id": "VSCode-CMake",
+          "Hidden": false,
+          "Default": true,
+          "Name": "CMake Extensions",
+          "Command": "code",
+          "Arguments": "--install-extension twxs.cmake josetr.cmake-language-support-vscode ms-vscode.cmake-tools"
+        },
+        {
+          "Id": "VSCode-DoxyGen",
+          "Hidden": false,
+          "Default": true,
+          "Name": "DoxyGen Extension",
+          "Command": "code",
+          "Arguments": "--install-extension cschlosser.doxdocgen"
+        },
+        {
+          "Id": "VSCode-EDK2",
+          "Hidden": false,
+          "Default": true,
+          "Name": "EDK2Code Extension",
+          "Command": "code",
+          "Arguments": "--install-extension intel-corporation.edk2code"
+        },
+        {
+          "Id": "VSCode-GitLens",
+          "Hidden": false,
+          "Default": true,
+          "Name": "GitLens Extension",
+          "Command": "code",
+          "Arguments": "--install-extension eamodio.gitlens"
+        },
+        {
+          "Id": "VSCode-History",
+          "Hidden": false,
+          "Default": true,
+          "Name": "Local History Extension",
+          "Command": "code",
+          "Arguments": "--install-extension xyz.local-history"
+        },
+        {
+          "Id": "VSCode-Python",
+          "Hidden": false,
+          "Default": true,
+          "Name": "Python Extensions",
+          "Command": "code",
+          "Arguments": "--install-extension ms-python.python ms-python.vscode-pylance ms-python.debugpy"
+        },
+        {
+          "Id": "VSCode-SSH",
+          "Hidden": false,
+          "Default": true,
+          "Name": "Remote SSH Extensions",
+          "Command": "code",
+          "Arguments": "--install-extension ms-vscode-remote.remote-ssh ms-vscode-remote.remote-ssh-edit ms-vscode.remote-explorer"
+        }
+      ]
+    },
+    {
+      "Id": "Editor-VSCommunity",
+      "Group": "Editor",
+      "Hidden": false,
+      "Default": false,
+      "Name": "Visual Studio Community",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install Microsoft.VisualStudio.2022.Community",
+      "PostTask": []
+    },
+    {
+      "Id": "SSH-Work",
+      "Group": "SSH",
+      "Hidden": false,
+      "Default": true,
+      "Name": "Work SSH Key",
+      "Command": "cmd.exe",
+      "Arguments": "/c CreateSSHKey.cmd Work ${WORK_EMAIL}",
+      "PostTask": []
+    },
+    {
+      "Id": "SSH-Personal",
+      "Group": "SSH",
+      "Hidden": false,
+      "Default": false,
+      "Name": "Personal SSH Key",
+      "Command": "cmd.exe",
+      "Arguments": "/c CreateSSHKey.cmd Personal ${PERSONAL_EMAIL}",
+      "PostTask": []
+    },
+    {
+      "Id": "SSH-Config",
+      "Group": "SSH",
+      "Hidden": false,
+      "Default": true,
+      "Name": "SSH Config File",
+      "Command": "cmd.exe",
+      "Arguments": "/c CreateSSHConfig.cmd ${WORK_EMAIL} ${PERSONAL_EMAIL}",
+      "PostTask": []
+    },
+    {
+      "Id": "SSH-OpenSSH",
+      "Group": "SSH",
+      "Hidden": false,
+      "Default": true,
+      "Name": "OpenSSH",
+      "Command": "powershell",
+      "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0'\"",
+      "PostTask": [
+        {
+          "Id": "OpenSSH-Client",
+          "Hidden": true,
+          "Default": true,
+          "Name": "Install OpenSSH Client",
+          "Command": "powershell",
+          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0'\""
+        },
+        {
+          "Id": "OpenSSH-Service",
+          "Hidden": true,
+          "Default": true,
+          "Name": "Start OpenSSH Service",
+          "Command": "powershell",
+          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Start-Service sshd'\""
+        },
+        {
+          "Id": "OpenSSH-Auto",
+          "Hidden": true,
+          "Default": true,
+          "Name": "Set OpenSSH to Start Automatically on Startup",
+          "Command": "powershell",
+          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Set-Service -Name sshd -StartupType \\\"Automatic\\\"'\""
+        }
+      ]
+    },
+    {
+      "Id": "Util-010",
+      "Group": "Utility",
+      "Hidden": false,
+      "Default": true,
+      "Name": "010 Binary Editor",
+      "Command": "cmd.exe",
+      "Arguments": "/c Install010.cmd",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Util-BeyondCompare",
+      "Group": "Utility",
+      "Hidden": false,
+      "Default": true,
+      "Name": "Beyond Compare",
+      "Command": "cmd.exe",
+      "Arguments": "/c InstallBeyondCompare.cmd",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Util-PuTTY",
+      "Group": "Utility",
+      "Hidden": false,
+      "Default": true,
+      "Name": "PuTTY",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install PuTTY.PuTTY",
+      "PostTask": [
+        {
+          "Id": "PuTTY-Work",
+          "Hidden": true,
+          "Default": true,
+          "Name": "Work PPK File",
+          "Command": "cmd.exe",
+          "Arguments": "/c CreatePPKFile.cmd Work"
+        },
+        {
+          "Id": "PuTTY-Personal",
+          "Hidden": true,
+          "Default": false,
+          "Name": "Personal PPK File",
+          "Command": "cmd.exe",
+          "Arguments": "/c CreatePPKFile.cmd Personal"
+        }
+      ]
+    },
+    {
+      "Id": "VCS-Git",
+      "Group": "Version Control",
+      "Hidden": false,
+      "Default": true,
+      "Name": "Git",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install Git.Git",
+      "PostTask": [
+        {
+          "Id": "Git-Gen13",
+          "Hidden": false,
+          "Default": true,
+          "Name": "Gen13 Main branch",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G13 clone main Gen13/main"
+        },
+        {
+          "Id": "Git-Gen12",
+          "Hidden": false,
+          "Default": true,
+          "Name": "Gen12 Master branch",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G12 clone master"
+        },
+        {
+          "Id": "Git-Gen11",
+          "Hidden": false,
+          "Default": false,
+          "Name": "Gen11 Master branch",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G11 clone master Gen11/master"
+        },
+        {
+          "Id": "Git-Gen10+",
+          "Hidden": false,
+          "Default": false,
+          "Name": "Gen10+ Master branch",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G10+ clone master Gen10Plus/master"
+        },
+        {
+          "Id": "Git-Gen10",
+          "Hidden": false,
+          "Default": false,
+          "Name": "Gen10 Master branch",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G10 clone master Gen10/master"
+        }
+	  ]
+    },
+    {
+      "Id": "VCS-TortoiseGit",
+      "Group": "Version Control",
+      "Hidden": false,
+      "Default": true,
+      "Name": "TortoiseGit",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install TortoiseGit.TortoiseGit",
+      "PostTask": []
+    },
+    {
+      "Id": "VCS-SVN",
+      "Group": "Version Control",
+      "Hidden": false,
+      "Default": false,
+      "Name": "TortoiseSVN",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install TortoiseSVN.TortoiseSVN",
+      "PostTask": [
+        {
+          "Id": "SVN-Gen9",
+          "Hidden": false,
+          "Default": false,
+          "Name": "Gen9 Trunk",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunSvn.cmd ${REPOS_BASE}\\G9 G9 checkout trunk"
+        },
+        {
+          "Id": "SVN-Gen8",
+          "Hidden": false,
+          "Default": false,
+          "Name": "Gen8 Trunk",
+          "Command": "cmd.exe",
+          "Arguments": "/c RunSvn.cmd ${REPOS_BASE}\\G8 G8 checkout trunk"
+        }
+	  ]
+    }
+  ]
+}

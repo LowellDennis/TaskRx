@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>TaskRx.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CliWrap" Version="3.6.6" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
+    <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AllTasks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\run-winget.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Exclude the duplicate TaskRx subfolder from the build -->
+  <ItemGroup>
+    <Compile Remove="TaskRx\**" />
+    <EmbeddedResource Remove="TaskRx\**" />
+    <None Remove="TaskRx\**" />
+  </ItemGroup>
+
+  <!-- Exclude duplicate files -->
+  <ItemGroup>
+    <Compile Remove="HtmlLogging.cs" />
+    <Compile Remove="LoggingExtensions.cs" />
+    <Compile Remove="ExecuteMainTask.cs" />
+    <Compile Remove="PathConfig.cs" />
+    <Compile Remove="Runner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TaskRx.ico" />
+  </ItemGroup>
+
+</Project>
