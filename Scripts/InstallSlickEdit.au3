@@ -4,9 +4,11 @@
 ; Invoke the SlickEdit installer
 Local $title  = "SlickEdit® Pro 2017 Setup"
 Local $msi    = "se_22000201_win64.msi"
-Local $path   = _PathFull(@ScriptDir & "\..\Data")
+Local $path   = _PathFull(@UserProfileDir & "\Downloads")
+Local $exe    = _PathFull($path & "\" & $msi)
+MsgBox(0, "info", $exe)
 Local $server = "l27001@liclin3.its.hpecorp.net,27001@liclin2.its.hpecorp.net,27001@liclin1.its.hpecorp.net"
-ShellExecute($path & "\" & $msi, "SLICKEDIT_LICENSE_SERVER="&$server, $path)
+ShellExecute($exe, "SLICKEDIT_LICENSE_SERVER="&$server, $path)
 sleep(1000)
 
 ; Click Next button

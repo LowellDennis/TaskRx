@@ -15,9 +15,9 @@
       "Group": "Editor",
       "Hidden": false,
       "Default": false,
-      "Name": "SlickEdit V14",
+      "Name": "SlickEdit Pro 2017",
       "Command": "cmd.exe",
-      "Arguments": "/c InstallSlickEdit.exe",
+      "Arguments": "/c InstallSlickEdit.cmd",
       "PostTask": []
     },
     {
