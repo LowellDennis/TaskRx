@@ -20,6 +20,9 @@ namespace TaskRx
         // Global varible containing user tasks after load (if present)
         private List<UserTask> userTasks = new List<UserTask>();
 
+        // Global variable containing the current user's domain
+        private string Domain = string.Empty;
+
         // Global variable containing the current user's username
         private string Username = string.Empty;
 
@@ -55,7 +58,8 @@ namespace TaskRx
     {
         public string? Id { get; set; }
         public bool Hidden { get; set; }
-        public bool Default { get; set; }
+        public bool Workstation { get; set; }
+        public bool Jumpstation { get; set; }
         public string Name { get; set; }
         public string Command { get; set; }
         public string Arguments { get; set; }
@@ -69,7 +73,8 @@ namespace TaskRx
         public string Id { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
         public bool Hidden { get; set; }
-        public bool Default { get; set; }
+        public bool Workstation { get; set; }
+        public bool Jumpstation { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Command { get; set; } = string.Empty;
         public string Arguments { get; set; } = string.Empty;
@@ -91,6 +96,7 @@ namespace TaskRx
     {
         public string? First { get; set; }
         public string? Last { get; set; }
+        public string? Domain { get; set; }
         public string? Username { get; set; }
         public string? Work { get; set; }
         public string? Personal { get; set; }

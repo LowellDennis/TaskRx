@@ -72,7 +72,7 @@ namespace TaskRx
                             foreach (var postTask in specificPostTasks[task.Name])
                             {
                                 // Look for hidden or selected post tasks
-                                if (postTask.Hidden || taskNode.Nodes.Cast<TreeNode>().Any(n => n.Text == n.Name && n.Checked))
+                                if (postTask.Hidden || taskNode.Nodes.Cast<TreeNode>().Any(n => n.Checked))
                                 {
                                     // Add post task to execution task
                                     ExecuteTask post = new ExecuteTask { Id = postTask.Id, Hidden = postTask.Hidden };
@@ -101,6 +101,7 @@ namespace TaskRx
             userInfo = new UserInfo();
             userInfo.First = txtFirst.Text;
             userInfo.Last = txtLast.Text;
+            userInfo.Domain = txtDomain.Text;
             userInfo.Username = txtUsername.Text;
             userInfo.Work = txtWork.Text;
             userInfo.Personal = txtPersonal.Text;
@@ -498,6 +499,7 @@ namespace TaskRx
             variableDictionary["FIRST_NAME"] = txtFirst.Text.Trim();
             variableDictionary["LAST_NAME"] = txtLast.Text.Trim();
             variableDictionary["FULL_NAME"] = txtFirst.Text.Trim() + " " + txtLast.Text.Trim();
+            variableDictionary["DOMAIN"] = txtDomain.Text.Trim();
             variableDictionary["USERNAME"] = txtUsername.Text.Trim();
             variableDictionary["WORK_EMAIL"] = txtWork.Text.Trim();
             variableDictionary["PERSONAL_EMAIL"] = txtPersonal.Text.Trim();

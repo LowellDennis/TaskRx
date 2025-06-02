@@ -35,7 +35,7 @@ namespace TaskRx
             // Check if all text boxes are filled
             bool allTextBoxesFilled = !string.IsNullOrEmpty(txtFirst.Text) &&
                                       !string.IsNullOrEmpty(txtLast.Text) &&
-                                      !string.IsNullOrEmpty(txtUsername.Text) &&
+                                      !string.IsNullOrEmpty(txtDomain.Text) &&
                                       !string.IsNullOrEmpty(txtWork.Text) &&
                                       !string.IsNullOrEmpty(txtPersonal.Text) &&
                                       !string.IsNullOrEmpty(txtBase.Text);
@@ -78,9 +78,9 @@ namespace TaskRx
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
-            if (txtUsername.Modified)
+            if (txtDomain.Modified)
             {
-                Username = txtUsername.Text;
+                Username = txtDomain.Text;
             }
             UpdateExecuteButtonState();
         }
@@ -129,14 +129,14 @@ namespace TaskRx
             txtOutput.Enabled = txtOutput.Visible = isExecuting;
             lblFirst.Visible = txtFirst.Enabled = txtFirst.Visible = !isExecuting;
             lblLast.Visible = txtLast.Enabled = txtLast.Visible = !isExecuting;
-            lblUsername.Visible = txtUsername.Enabled = txtUsername.Visible = !isExecuting;
+            lblDomain.Visible = txtDomain.Enabled = txtDomain.Visible = !isExecuting;
             lblWork.Visible = txtWork.Enabled = txtWork.Visible = !isExecuting;
             lblPersonal.Visible = txtPersonal.Enabled = txtPersonal.Visible = !isExecuting;
             lblBase.Visible = txtBase.Enabled = txtBase.Visible = !isExecuting;
             btnBase.Enabled = btnBase.Visible = !isExecuting;
             checkAllSplitButton.Enabled = checkAllSplitButton.Visible = !isExecuting;
             uncheckAllSplitButton.Enabled = uncheckAllSplitButton.Visible = !isExecuting;
-            checkDefaultButton.Enabled = checkDefaultButton.Visible = !isExecuting;
+            checkWorkstationButton.Enabled = checkWorkstationButton.Visible = !isExecuting;
             uncheckAllButton.Enabled = uncheckAllButton.Visible = !isExecuting;
             setupTabControl.Enabled = setupTabControl.Visible = !isExecuting;
             executeButton.Enabled = !isExecuting;
@@ -319,9 +319,9 @@ namespace TaskRx
         }
 
         /// <summary>
-        /// Check default checkboxes in setup tab control
+        /// Check defaults for Workstation checkboxes
         /// </summary>
-        private void checkDefaultButton_ButtonClick(object sender, EventArgs e)
+        private void checkDefaultWorkstation_ButtonClick(object sender, EventArgs e)
         {
             // Process all nodes in tree view for tab control
             foreach (TabPage tabPage in setupTabControl.TabPages)
@@ -331,11 +331,11 @@ namespace TaskRx
                     foreach (TreeNode node in treeView.Nodes)
                     {
                         MainTask Task = node.Tag as MainTask;
-                        node.Checked = Task.Default;
+                        node.Checked = Task.Workstation;
                         foreach (TreeNode childNode in node.Nodes)
                         {
                             PostTask postTask = childNode.Tag as PostTask;
-                            childNode.Checked = postTask.Default;
+                            childNode.Checked = postTask.Workstation;
                         }
                     }
                 }
@@ -343,7 +343,31 @@ namespace TaskRx
         }
 
         /// <summary>
-        /// Check all checkboxes in setup tab control
+        /// Check defaults for Jumpstation checkboxes
+        /// </summary>
+        private void checkDefaultJumpstation_ButtonClick(object sender, EventArgs e)
+        {
+            // Process all nodes in tree view for tab control
+            foreach (TabPage tabPage in setupTabControl.TabPages)
+            {
+                foreach (TreeView treeView in tabPage.Controls.OfType<TreeView>())
+                {
+                    foreach (TreeNode node in treeView.Nodes)
+                    {
+                        MainTask Task = node.Tag as MainTask;
+                        node.Checked = Task.Jumpstation;
+                        foreach (TreeNode childNode in node.Nodes)
+                        {
+                            PostTask postTask = childNode.Tag as PostTask;
+                            childNode.Checked = postTask.Jumpstation;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Check all checkboxes
         /// </summary>
         private void checkAllMenuItem_ButtonClick(object sender, EventArgs e)
         {
@@ -382,7 +406,7 @@ namespace TaskRx
         }
 
         /// <summary>
-        /// Check only the main task nodes (not post tasks) in setup tab control
+        /// Check only the main task nodes (not post tasks)
         /// </summary>
         private void checkAllTasksMenuItem_Click(object sender, EventArgs e)
         {
@@ -403,7 +427,7 @@ namespace TaskRx
         }
 
         /// <summary>
-        /// Check only the post task nodes (not main tasks) in setup tab control
+        /// Check only the post task nodes (not main tasks)
         /// </summary>
         private void checkAllPostTasksMenuItem_Click(object sender, EventArgs e)
         {

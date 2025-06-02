@@ -8,9 +8,9 @@ set URL=
 set LICENSE=
 set OPTIONS=
 set ALTINSTALL=%~dp0InstallSlickEdit.exe
-set SOURCE=\\romqacorp.americas.hpqcorp.net\Shared Apps\Slick Edit\%PROGRAM%
+set SOURCE=%~dp0%PROGRAM%
 
-:: Copy SLick Edit installer to downloads folder
+:: Copy Slick Edit installer to downloads folder
 set TARGET=%USERPROFILE%\Downloads\%PROGRAM%
 if exist "%TARGET%" goto NoCopy
 echo copy "%SOURCE%" "%TARGET%"

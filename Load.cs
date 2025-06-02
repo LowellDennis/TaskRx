@@ -90,6 +90,7 @@ namespace TaskRx
                         {
                             txtFirst.Text = userInfo.First;
                             txtLast.Text = userInfo.Last;
+                            txtDomain.Text = userInfo.Domain;
                             txtUsername.Text = userInfo.Username;
                             txtWork.Text = userInfo.Work;
                             txtPersonal.Text = userInfo.Personal;
@@ -118,8 +119,20 @@ namespace TaskRx
             }
             else
             {
+                string domain   = Environment.UserDomainName;
                 string username = Environment.UserName;
 
+                // See if domain can be obtained from the environment
+                if (!domain.Equals(""))
+                {
+                    await Task.Run(() =>
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            txtDomain.Text = domain;
+                        });
+                    });
+                }
                 // See if Username can be obtained from the environment
                 if (!username.Equals("Administrator"))
                 {

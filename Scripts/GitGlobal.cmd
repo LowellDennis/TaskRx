@@ -46,6 +46,10 @@ git config --global user.email "%~3"
 if ERRORLEVEL 1 goto Exit
 echo git config --global core.excludefiles %USERPROFILE%\.gitignore
 git config --global core.excludefiles %USERPROFILE%\.gitignore
+if ERRORLEVEL 1 goto Exit
+
+:: Set the default merge of master branch to "--squash"
+git config branch.master.mergeOptions "--squash"
 
 :Exit
 endlocal && exit /b %ERRORLEVEL%

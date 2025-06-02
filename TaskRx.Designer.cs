@@ -25,29 +25,32 @@
             txtFirst = new TextBox();
             txtLast = new TextBox();
             lblLast = new Label();
-            txtUsername = new TextBox();
-            lblUsername = new Label();
+            txtDomain = new TextBox();
+            lblDomain = new Label();
             txtPersonal = new TextBox();
             lblPersonal = new Label();
             txtOutput = new RichTextBox();
-            checkAllSplitButton = new ToolStrip();
-            checkDefaultButton = new ToolStripSplitButton();
-            checkAllTasksMenuItem = new ToolStripMenuItem();
-            checkAllPostTasksMenuItem = new ToolStripMenuItem();
-            checkAllPostTasksToolStripMenuItem = new ToolStripMenuItem();
-            toolStripButton1 = new ToolStripButton();
-            uncheckAllSplitButton = new ToolStrip();
-            uncheckAllButton = new ToolStripSplitButton();
-            uncheckAllTasksMenuItem = new ToolStripMenuItem();
-            uncheckAllPostTasksMenuItem = new ToolStripMenuItem();
             txtBase = new TextBox();
             lblBase = new Label();
             btnBase = new Button();
             lblWork = new Label();
             txtWork = new TextBox();
+            uncheckAllButton = new ToolStripSplitButton();
+            uncheckAllTasksMenuItem = new ToolStripMenuItem();
+            uncheckAllPostTasksMenuItem = new ToolStripMenuItem();
+            uncheckAllSplitButton = new ToolStrip();
+            checkAllSplitButton = new ToolStrip();
+            checkWorkstationButton = new ToolStripSplitButton();
+            checkAllTasksMenuItem = new ToolStripMenuItem();
+            checkAllPostTasksMenuItem = new ToolStripMenuItem();
+            checkAllPostTasksToolStripMenuItem = new ToolStripMenuItem();
+            checkAllPostTasksToolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripButton1 = new ToolStripButton();
+            txtUsername = new TextBox();
+            lblUsername = new Label();
             executionStrip.SuspendLayout();
-            checkAllSplitButton.SuspendLayout();
             uncheckAllSplitButton.SuspendLayout();
+            checkAllSplitButton.SuspendLayout();
             SuspendLayout();
             // 
             // setupTabControl
@@ -56,12 +59,12 @@
             setupTabControl.Location = new Point(12, 142);
             setupTabControl.Name = "setupTabControl";
             setupTabControl.SelectedIndex = 0;
-            setupTabControl.Size = new Size(734, 373);
-            setupTabControl.TabIndex = 12;
+            setupTabControl.Size = new Size(734, 510);
+            setupTabControl.TabIndex = 17;
             // 
             // executeButton
             // 
-            executeButton.Location = new Point(12, 528);
+            executeButton.Location = new Point(12, 658);
             executeButton.Name = "executeButton";
             executeButton.Size = new Size(100, 30);
             executeButton.TabIndex = 18;
@@ -70,16 +73,16 @@
             // 
             // executionProgress
             // 
-            executionProgress.Location = new Point(125, 528);
+            executionProgress.Location = new Point(118, 659);
             executionProgress.Name = "executionProgress";
-            executionProgress.Size = new Size(618, 29);
+            executionProgress.Size = new Size(628, 29);
             executionProgress.TabIndex = 19;
             // 
             // executionStrip
             // 
             executionStrip.ImageScalingSize = new Size(20, 20);
             executionStrip.Items.AddRange(new ToolStripItem[] { executionStatus });
-            executionStrip.Location = new Point(0, 566);
+            executionStrip.Location = new Point(0, 691);
             executionStrip.Name = "executionStrip";
             executionStrip.Size = new Size(758, 22);
             executionStrip.TabIndex = 20;
@@ -124,29 +127,29 @@
             lblLast.TabIndex = 2;
             lblLast.Text = "Last Name";
             // 
-            // txtUsername
+            // txtDomain
             // 
-            txtUsername.Location = new Point(100, 72);
-            txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(227, 27);
-            txtUsername.TabIndex = 5;
-            txtUsername.TextChanged += txtUsername_TextChanged;
+            txtDomain.Location = new Point(100, 72);
+            txtDomain.Name = "txtDomain";
+            txtDomain.Size = new Size(227, 27);
+            txtDomain.TabIndex = 5;
+            txtDomain.TextChanged += txtUsername_TextChanged;
             // 
-            // lblUsername
+            // lblDomain
             // 
-            lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(19, 77);
-            lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(75, 20);
-            lblUsername.TabIndex = 4;
-            lblUsername.Text = "Username";
+            lblDomain.AutoSize = true;
+            lblDomain.Location = new Point(19, 77);
+            lblDomain.Name = "lblDomain";
+            lblDomain.Size = new Size(62, 20);
+            lblDomain.TabIndex = 4;
+            lblDomain.Text = "Domain";
             // 
             // txtPersonal
             // 
             txtPersonal.Location = new Point(436, 39);
             txtPersonal.Name = "txtPersonal";
             txtPersonal.Size = new Size(227, 27);
-            txtPersonal.TabIndex = 9;
+            txtPersonal.TabIndex = 11;
             txtPersonal.TextChanged += txtPersonal_TextChanged;
             // 
             // lblPersonal
@@ -155,86 +158,64 @@
             lblPersonal.Location = new Point(339, 42);
             lblPersonal.Name = "lblPersonal";
             lblPersonal.Size = new Size(91, 20);
-            lblPersonal.TabIndex = 8;
+            lblPersonal.TabIndex = 10;
             lblPersonal.Text = "Home Email";
             // 
             // txtOutput
             // 
             txtOutput.DetectUrls = false;
-            txtOutput.Location = new Point(19, 7);
+            txtOutput.Location = new Point(12, 7);
             txtOutput.Name = "txtOutput";
             txtOutput.ReadOnly = true;
             txtOutput.ScrollBars = RichTextBoxScrollBars.ForcedBoth;
-            txtOutput.Size = new Size(734, 508);
+            txtOutput.Size = new Size(734, 647);
             txtOutput.TabIndex = 17;
             txtOutput.Text = "";
             txtOutput.Visible = false;
             txtOutput.WordWrap = false;
             // 
-            // checkAllSplitButton
+            // txtBase
             // 
-            checkAllSplitButton.Dock = DockStyle.None;
-            checkAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
-            checkAllSplitButton.ImageScalingSize = new Size(20, 20);
-            checkAllSplitButton.Items.AddRange(new ToolStripItem[] { checkDefaultButton, toolStripButton1 });
-            checkAllSplitButton.Location = new Point(19, 109);
-            checkAllSplitButton.Name = "checkAllSplitButton";
-            checkAllSplitButton.RenderMode = ToolStripRenderMode.System;
-            checkAllSplitButton.Size = new Size(152, 27);
-            checkAllSplitButton.TabIndex = 13;
-            checkAllSplitButton.Text = "Check All";
+            txtBase.Location = new Point(436, 72);
+            txtBase.Name = "txtBase";
+            txtBase.Size = new Size(227, 27);
+            txtBase.TabIndex = 13;
+            txtBase.TextChanged += txtBase_TextChanged;
             // 
-            // checkDefaultButton
+            // lblBase
             // 
-            checkDefaultButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            checkDefaultButton.DropDownItems.AddRange(new ToolStripItem[] { checkAllTasksMenuItem, checkAllPostTasksMenuItem, checkAllPostTasksToolStripMenuItem });
-            checkDefaultButton.ImageTransparentColor = Color.Magenta;
-            checkDefaultButton.Name = "checkDefaultButton";
-            checkDefaultButton.Size = new Size(120, 24);
-            checkDefaultButton.Text = "Check Default";
-            checkDefaultButton.ButtonClick += checkDefaultButton_ButtonClick;
+            lblBase.AutoSize = true;
+            lblBase.Location = new Point(345, 75);
+            lblBase.Name = "lblBase";
+            lblBase.Size = new Size(85, 20);
+            lblBase.TabIndex = 12;
+            lblBase.Text = "Repos Base";
             // 
-            // checkAllTasksMenuItem
+            // btnBase
             // 
-            checkAllTasksMenuItem.Name = "checkAllTasksMenuItem";
-            checkAllTasksMenuItem.Size = new Size(221, 26);
-            checkAllTasksMenuItem.Text = "Check All";
-            checkAllTasksMenuItem.Click += checkAllMenuItem_ButtonClick;
+            btnBase.Location = new Point(669, 72);
+            btnBase.Name = "btnBase";
+            btnBase.Size = new Size(77, 30);
+            btnBase.TabIndex = 14;
+            btnBase.Text = "Browse";
+            btnBase.Click += btnBase_Click;
             // 
-            // checkAllPostTasksMenuItem
+            // lblWork
             // 
-            checkAllPostTasksMenuItem.Name = "checkAllPostTasksMenuItem";
-            checkAllPostTasksMenuItem.Size = new Size(221, 26);
-            checkAllPostTasksMenuItem.Text = "Check All Tasks";
-            checkAllPostTasksMenuItem.Click += checkAllTasksMenuItem_Click;
+            lblWork.AutoSize = true;
+            lblWork.Location = new Point(346, 10);
+            lblWork.Name = "lblWork";
+            lblWork.Size = new Size(84, 20);
+            lblWork.TabIndex = 8;
+            lblWork.Text = "Work Email";
             // 
-            // checkAllPostTasksToolStripMenuItem
+            // txtWork
             // 
-            checkAllPostTasksToolStripMenuItem.Name = "checkAllPostTasksToolStripMenuItem";
-            checkAllPostTasksToolStripMenuItem.Size = new Size(221, 26);
-            checkAllPostTasksToolStripMenuItem.Text = "Check All Post Tasks";
-            checkAllPostTasksToolStripMenuItem.Click += checkAllPostTasksMenuItem_Click;
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(29, 24);
-            toolStripButton1.Text = "toolStripButton1";
-            // 
-            // uncheckAllSplitButton
-            // 
-            uncheckAllSplitButton.Dock = DockStyle.None;
-            uncheckAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
-            uncheckAllSplitButton.ImageScalingSize = new Size(20, 20);
-            uncheckAllSplitButton.Items.AddRange(new ToolStripItem[] { uncheckAllButton });
-            uncheckAllSplitButton.Location = new Point(175, 109);
-            uncheckAllSplitButton.Name = "uncheckAllSplitButton";
-            uncheckAllSplitButton.RenderMode = ToolStripRenderMode.System;
-            uncheckAllSplitButton.Size = new Size(108, 27);
-            uncheckAllSplitButton.TabIndex = 14;
-            uncheckAllSplitButton.Text = "Uncheck All";
+            txtWork.Location = new Point(436, 7);
+            txtWork.Name = "txtWork";
+            txtWork.Size = new Size(227, 27);
+            txtWork.TabIndex = 9;
+            txtWork.TextChanged += txtWork_TextChanged;
             // 
             // uncheckAllButton
             // 
@@ -260,54 +241,99 @@
             uncheckAllPostTasksMenuItem.Text = "Uncheck All Post Tasks";
             uncheckAllPostTasksMenuItem.Click += uncheckAllPostTasksMenuItem_Click;
             // 
-            // txtBase
+            // uncheckAllSplitButton
             // 
-            txtBase.Location = new Point(436, 72);
-            txtBase.Name = "txtBase";
-            txtBase.Size = new Size(227, 27);
-            txtBase.TabIndex = 11;
-            txtBase.TextChanged += txtBase_TextChanged;
+            uncheckAllSplitButton.Dock = DockStyle.None;
+            uncheckAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
+            uncheckAllSplitButton.ImageScalingSize = new Size(20, 20);
+            uncheckAllSplitButton.Items.AddRange(new ToolStripItem[] { uncheckAllButton });
+            uncheckAllSplitButton.Location = new Point(630, 109);
+            uncheckAllSplitButton.Name = "uncheckAllSplitButton";
+            uncheckAllSplitButton.RenderMode = ToolStripRenderMode.System;
+            uncheckAllSplitButton.Size = new Size(108, 27);
+            uncheckAllSplitButton.TabIndex = 16;
+            uncheckAllSplitButton.Text = "Uncheck All";
             // 
-            // lblBase
+            // checkAllSplitButton
             // 
-            lblBase.AutoSize = true;
-            lblBase.Location = new Point(345, 75);
-            lblBase.Name = "lblBase";
-            lblBase.Size = new Size(85, 20);
-            lblBase.TabIndex = 10;
-            lblBase.Text = "Repos Base";
+            checkAllSplitButton.Dock = DockStyle.None;
+            checkAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
+            checkAllSplitButton.ImageScalingSize = new Size(20, 20);
+            checkAllSplitButton.Items.AddRange(new ToolStripItem[] { checkWorkstationButton, toolStripButton1 });
+            checkAllSplitButton.Location = new Point(430, 109);
+            checkAllSplitButton.Name = "checkAllSplitButton";
+            checkAllSplitButton.RenderMode = ToolStripRenderMode.System;
+            checkAllSplitButton.Size = new Size(198, 27);
+            checkAllSplitButton.TabIndex = 15;
+            checkAllSplitButton.Text = "Check All";
             // 
-            // btnBase
+            // checkWorkstationButton
             // 
-            btnBase.Location = new Point(669, 72);
-            btnBase.Name = "btnBase";
-            btnBase.Size = new Size(77, 30);
-            btnBase.TabIndex = 12;
-            btnBase.Text = "Browse";
-            btnBase.Click += btnBase_Click;
+            checkWorkstationButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            checkWorkstationButton.DropDownItems.AddRange(new ToolStripItem[] { checkAllTasksMenuItem, checkAllPostTasksMenuItem, checkAllPostTasksToolStripMenuItem, checkAllPostTasksToolStripMenuItem1 });
+            checkWorkstationButton.ImageTransparentColor = Color.Magenta;
+            checkWorkstationButton.Name = "checkWorkstationButton";
+            checkWorkstationButton.Size = new Size(166, 24);
+            checkWorkstationButton.Text = "Workstation Defaults";
+            checkWorkstationButton.ToolTipText = "Check Defaults for Workstation";
+            checkWorkstationButton.ButtonClick += checkDefaultWorkstation_ButtonClick;
             // 
-            // lblWork
+            // checkAllTasksMenuItem
             // 
-            lblWork.AutoSize = true;
-            lblWork.Location = new Point(346, 10);
-            lblWork.Name = "lblWork";
-            lblWork.Size = new Size(84, 20);
-            lblWork.TabIndex = 6;
-            lblWork.Text = "Work Email";
+            checkAllTasksMenuItem.Name = "checkAllTasksMenuItem";
+            checkAllTasksMenuItem.Size = new Size(231, 26);
+            checkAllTasksMenuItem.Text = "Jumpstation Defaults";
+            checkAllTasksMenuItem.Click += checkDefaultJumpstation_ButtonClick;
             // 
-            // txtWork
+            // checkAllPostTasksMenuItem
             // 
-            txtWork.Location = new Point(436, 7);
-            txtWork.Name = "txtWork";
-            txtWork.Size = new Size(227, 27);
-            txtWork.TabIndex = 7;
-            txtWork.TextChanged += txtWork_TextChanged;
+            checkAllPostTasksMenuItem.Name = "checkAllPostTasksMenuItem";
+            checkAllPostTasksMenuItem.Size = new Size(231, 26);
+            checkAllPostTasksMenuItem.Text = "Check All";
+            checkAllPostTasksMenuItem.Click += checkAllMenuItem_ButtonClick;
+            // 
+            // checkAllPostTasksToolStripMenuItem
+            // 
+            checkAllPostTasksToolStripMenuItem.Name = "checkAllPostTasksToolStripMenuItem";
+            checkAllPostTasksToolStripMenuItem.Size = new Size(231, 26);
+            checkAllPostTasksToolStripMenuItem.Text = "Check All Tasks";
+            checkAllPostTasksToolStripMenuItem.Click += checkAllTasksMenuItem_Click;
+            // 
+            // checkAllPostTasksToolStripMenuItem1
+            // 
+            checkAllPostTasksToolStripMenuItem1.Name = "checkAllPostTasksToolStripMenuItem1";
+            checkAllPostTasksToolStripMenuItem1.Size = new Size(231, 26);
+            checkAllPostTasksToolStripMenuItem1.Text = "Check All Post Tasks";
+            checkAllPostTasksToolStripMenuItem1.Click += checkAllPostTasksMenuItem_Click;
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(29, 24);
+            // 
+            // txtUsername
+            // 
+            txtUsername.Location = new Point(100, 105);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(227, 27);
+            txtUsername.TabIndex = 7;
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(19, 110);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(75, 20);
+            lblUsername.TabIndex = 6;
+            lblUsername.Text = "Username";
             // 
             // TaskRx
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(758, 588);
+            ClientSize = new Size(758, 713);
+            Controls.Add(txtUsername);
+            Controls.Add(lblUsername);
             Controls.Add(btnBase);
             Controls.Add(txtBase);
             Controls.Add(lblBase);
@@ -315,8 +341,8 @@
             Controls.Add(lblPersonal);
             Controls.Add(txtWork);
             Controls.Add(lblWork);
-            Controls.Add(txtUsername);
-            Controls.Add(lblUsername);
+            Controls.Add(txtDomain);
+            Controls.Add(lblDomain);
             Controls.Add(txtLast);
             Controls.Add(lblLast);
             Controls.Add(txtFirst);
@@ -330,14 +356,14 @@
             Controls.Add(txtOutput);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TaskRx";
-            Text = "TaskRx V1.0";
+            Text = "TaskRx V1.0.2";
             Load += TaskRx_Load;
             executionStrip.ResumeLayout(false);
             executionStrip.PerformLayout();
-            checkAllSplitButton.ResumeLayout(false);
-            checkAllSplitButton.PerformLayout();
             uncheckAllSplitButton.ResumeLayout(false);
             uncheckAllSplitButton.PerformLayout();
+            checkAllSplitButton.ResumeLayout(false);
+            checkAllSplitButton.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -351,25 +377,28 @@
         private TextBox txtFirst;
         private TextBox txtLast;
         private Label lblLast;
-        private TextBox txtUsername;
-        private Label lblUsername;
+        private TextBox txtDomain;
+        private Label lblDomain;
         private TextBox txtPersonal;
         private Label lblPersonal;
         private RichTextBox txtOutput;
-        private ToolStrip checkAllSplitButton;
-        private ToolStripSplitButton checkDefaultButton;
-        private ToolStripMenuItem checkAllTasksMenuItem;
-        private ToolStripMenuItem checkAllPostTasksMenuItem;
-        private ToolStrip uncheckAllSplitButton;
-        private ToolStripSplitButton uncheckAllButton;
-        private ToolStripMenuItem uncheckAllTasksMenuItem;
-        private ToolStripMenuItem uncheckAllPostTasksMenuItem;
         private TextBox txtBase;
         private Label lblBase;
         private Button btnBase;
         private Label lblWork;
         private TextBox txtWork;
-        private ToolStripButton toolStripButton1;
+        private ToolStripSplitButton uncheckAllButton;
+        private ToolStripMenuItem uncheckAllTasksMenuItem;
+        private ToolStripMenuItem uncheckAllPostTasksMenuItem;
+        private ToolStrip uncheckAllSplitButton;
+        private ToolStrip checkAllSplitButton;
+        private ToolStripSplitButton checkWorkstationButton;
+        private ToolStripMenuItem checkAllTasksMenuItem;
+        private ToolStripMenuItem checkAllPostTasksMenuItem;
         private ToolStripMenuItem checkAllPostTasksToolStripMenuItem;
+        private ToolStripMenuItem checkAllPostTasksToolStripMenuItem1;
+        private ToolStripButton toolStripButton1;
+        private TextBox txtUsername;
+        private Label lblUsername;
     }
 }
