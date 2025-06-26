@@ -8,7 +8,7 @@
       "Jumpstation": false,
       "Name": "Microsoft Office",
       "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"InstallOffice.ps1\" -email \"${WORK_EMAIL}\" -domain \"${DOMAIN}\" -username \"${USERNAME}\"",",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallOffice.ps1\" -email \"${WORK_EMAIL}\" -domain \"${DOMAIN}\" -username \"${USERNAME}\"",
       "PostTask": [
         {
           "Id": "Outlook-Pin",
@@ -16,8 +16,8 @@
           "Workstation": true,
           "Jumpstation": false,
           "Name": "Pin Outlook to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "C:\\Program Files\\WindowsApps\\Microsoft.OutlookForWindows_1.2025.506.300_x64__8wekyb3d8bbwe\\olk.exe 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C syspin.exe \"C:\\Program Files\\WindowsApps\\Microsoft.OutlookForWindows_1.2025.506.300_x64__8wekyb3d8bbwe\\olk.exe\" 5386"
         },
         {
           "Id": "Teams-Pin",
@@ -25,8 +25,8 @@
           "Workstation": true,
           "Jumpstation": false,
           "Name": "Pin Teams to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "C:\\Program Files\\WindowsApps\\MSTeams_25072.1611.3570.1995_x64__8wekyb3d8bbwe\\ms-teams.exe 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C syspin.exe \"C:\\Program Files\\WindowsApps\\MSTeams_25072.1611.3570.1995_x64__8wekyb3d8bbwe\\ms-teams.exe\" 5386"
         }
 	  ]
     },
@@ -37,8 +37,8 @@
       "Workstation": true,
       "Jumpstation": false,
       "Name": "Slack",
-      "Command": "cmd.exe",
-      "Arguments": "/c RunWinget.cmd install SlackTechnologies.Slack",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallSlack.ps1\"",
       "PostTask": [
         {
           "Id": "Slack-Pin",

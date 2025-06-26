@@ -6,46 +6,51 @@ param (
 )
 
 function Install-WebView2 {
-    Write-Host "Checking for WebView2 runtime..."
-    $webview2Key = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F2C6E2B0-E5AA-4E0C-8A0A-6A2A4A8C3F9A}"
+    Write-Output "Checking for WebView2 runtime..."
+    $webview2Key = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"
     if (-not (Test-Path $webview2Key)) {
-        Write-Host "WebView2 runtime not found. Downloading and installing..."
+        Write-Output "WebView2 runtime not found. Downloading and installing..."
         $webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703"
         $webview2InstallerPath = "$env:TEMP\MicrosoftEdgeWebview2Setup.exe"
         Invoke-WebRequest -Uri $webview2Installer -OutFile $webview2InstallerPath
         Start-Process -FilePath $webview2InstallerPath -ArgumentList "/silent /install" -Wait
-        Write-Host "WebView2 runtime installed."
+        Write-Output "WebView2 runtime installed."
     } else {
-        Write-Host "WebView2 runtime is already installed."
+        Write-Output "WebView2 runtime is already installed."
     }
 }
 
 function Install-Microsoft365Apps {
-    Write-Host "Downloading Office Deployment Tool..."
-    $odtUrl = "https://www.microsoft.com/en-us/download/details.aspx?id=49117"
-    $odtPath = "$env:TEMP\OfficeDeploymentTool.exe"
+    Write-Output "Downloading Office Deployment Tool..."
+    $odtUrl = "https://download.microsoft.com/download/6c1eeb25-cf8b-41d9-8d0d-cc1dbc032140/officedeploymenttool_18730-20142.exe"
+    $odtPath = "$env:USERPROFILE\Downloads\OfficeDeploymentTool.exe"
     Invoke-WebRequest -Uri $odtUrl -OutFile $odtPath
-    Write-Host "Extracting Office Deployment Tool..."
-    Start-Process -FilePath $odtPath -ArgumentList "/quiet /extract:$env:TEMP\ODT" -Wait
+    Write-Output "Extracting Office Deployment Tool..."
+    Start-Process -FilePath $odtPath -ArgumentList "/quiet /extract:$env:USERPROFILE\Downloads\ODT" -Wait
 
-    Write-Host "Creating configuration.xml..."
+    Write-Output "Creating configuration.xml..."
     $configXml = @"
 <Configuration>
   <Add OfficeClientEdition="64" Channel="Current">
     <Product ID="O365ProPlusRetail">
       <Language ID="en-us" />
+      <ExcludeApp ID="Access" />
       <ExcludeApp ID="Outlook" />
+      <ExcludeApp ID="Publisher" />
     </Product>
   </Add>
   <Display Level="None" AcceptEULA="TRUE" />
+  <Property Name="AUTOACTIVATE" Value="1" />
+  <Property Name="FORCEAPPSHUTDOWN" Value="TRUE" />
+  <Property Name="DeviceBasedLicensing" Value="1" />
 </Configuration>
 "@
-    $configXmlPath = "$env:TEMP\ODT\configuration.xml"
+    $configXmlPath = "$env:USERPROFILE\Downloads\ODT\configuration.xml"
     $configXml | Out-File -FilePath $configXmlPath -Encoding utf8
 
-    Write-Host "Installing Microsoft 365 Apps for Enterprise..."
-    Start-Process -FilePath "$env:TEMP\ODT\setup.exe" -ArgumentList "/configure $configXmlPath" -Wait
-    Write-Host "Microsoft 365 Apps for Enterprise installed."
+    Write-Output "Installing Excel, OneNote, PowerPoint, and Word ..."
+    Start-Process -FilePath "$env:USERPROFILE\Downloads\ODT\setup.exe" -Wait
+    Write-Output "Excel, OneNote, PowerPoint, and Word installed!"
 }
 
 function Install-NewOutlook {
@@ -54,47 +59,65 @@ function Install-NewOutlook {
     $newOutlookPath = "$env:TEMP\OutlookSetup.exe"
     Invoke-WebRequest -Uri $newOutlookUrl -OutFile $newOutlookPath
 
-    Write-Host "Installing New Outlook..."
+    Write-Host "Installing Outlook(new)..."
     Start-Process -FilePath $newOutlookPath -ArgumentList "/silent /install" -Wait
-    Write-Host "New Outlook installed."
+    Write-Host "Outlook(new) installed."
 }
 
 function Install-NewTeams {
-    Write-Host "Downloading New Teams installer..."
+    Write-Output "Downloading Teams(new) installer..."
     $newTeamsUrl = "https://aka.ms/teamsbootstrapper"
-    $newTeamsPath = "$env:TEMP\TeamsBootstrapper.exe"
+    $newTeamsPath = "$env:USERPROFILE\Downloads\TeamsBootstrapper.exe"
     Invoke-WebRequest -Uri $newTeamsUrl -OutFile $newTeamsPath
 
-    Write-Host "Installing New Teams..."
+    Write-Output "Installing Teams(new)..."
     Start-Process -FilePath $newTeamsPath -ArgumentList "/silent /install" -Wait
-    Write-Host "New Teams installed."
+    Write-Output "Teams(new) installed."
 }
 
 function PostInstallChecks {
-    Write-Host "Performing post-installation checks..."
-    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE") {
-        Write-Host "Microsoft 365 Apps for Enterprise installed successfully."
+    Write-Output "Performing post-installation checks..."
+    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE") {
+        Write-Output "Excel installed successfully."
     } else {
-        Write-Host "Microsoft 365 Apps for Enterprise installation failed."
+        Write-Output "Excel installation failed."
+    }
+
+    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\ONENOTE.EXE") {
+        Write-Output "OneNote installed successfully."
+    } else {
+        Write-Output "OneNote installation failed."
+    }
+
+    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE") {
+        Write-Output "PowerPoint installed successfully."
+    } else {
+        Write-Output "PowerPoint installation failed."
+    }
+
+    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE") {
+        Write-Output "Word installed successfully."
+    } else {
+        Write-Output "Word installation failed."
     }
 
     if (Test-Path "C:\Program Files\Microsoft\Outlook\Outlook.exe") {
-        Write-Host "New Outlook installed successfully."
+        Write-Output "Outlook(new) installed successfully."
     } else {
-        Write-Host "New Outlook installation failed."
+        Write-Output "Outlook(new) installation failed."
     }
 
     if (Test-Path "C:\Program Files\Microsoft\Teams\current\Teams.exe") {
-        Write-Host "New Teams installed successfully."
+        Write-Output "Teams(new) installed successfully."
     } else {
-        Write-Host "New Teams installation failed."
+        Write-Output "Teams(new) installation failed."
     }
 }
 
-Write-Host "Starting installation process..."
+Write-Output "Starting Microsoft Office installation..."
 Install-WebView2
 Install-Microsoft365Apps
 Install-NewOutlook
 Install-NewTeams
 PostInstallChecks
-Write-Host "Installation process completed."
+Write-Output "Microsot Office Installation completed."
