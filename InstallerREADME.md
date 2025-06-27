@@ -31,9 +31,8 @@ This document provides instructions for building and using the TaskRx installer.
 The installer will:
 1. Install the TaskRx.exe and all required DLLs
 2. Create a Scripts subfolder with all script files
-3. Create a Data subfolder with all data files
-4. Create start menu shortcuts
-5. Optionally create a desktop shortcut
+3. Create start menu shortcuts
+4. Optionally create a desktop shortcut
 
 ## Customizing the Installer
 
