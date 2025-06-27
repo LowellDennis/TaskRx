@@ -1,9 +1,9 @@
 
 # Define the download URL for the latest Slack Windows installer (64-bit)
-$slackInstallerUrl = "https://downloads.slack-edge.com/releases/windows/SlackSetup.exe"
+$slackInstallerUrl = "https://slack.com/ssb/download-win64-msi"
 
 # Define the local path to save the installer
-$installerPath = "$env:TEMP\SlackSetup.exe"
+$installerPath = "$env:TEMP\slack-standalone.msi"
 
 # Function to check if Slack is already installed
 function Is-SlackInstalled {
@@ -45,7 +45,7 @@ Invoke-WebRequest -Uri $slackInstallerUrl -OutFile $installerPath
 
 # Install Slack silently
 Log "Installing Slack silently..."
-Start-Process -FilePath $installerPath -ArgumentList "/S" -Wait
+Start-Process -FilePath $installerPath /NoRestart /Silent
 
 # Construct the workspace URL
 $workspaceUrl = Get-WorkspaceUrl

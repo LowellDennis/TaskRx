@@ -1,4 +1,4 @@
-::echo off
+@echo off
 setlocal enableextensions
 
 if exist "%~1\" goto Done

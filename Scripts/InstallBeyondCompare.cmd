@@ -1,4 +1,4 @@
-::@echo off
+@echo off
 setlocal
 
 set NAME=Beyond Compare V4.4.7

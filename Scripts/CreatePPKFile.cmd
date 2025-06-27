@@ -1,4 +1,4 @@
-::@echo off
+@echo off
 setlocal
 
 :: Handle usage invocations

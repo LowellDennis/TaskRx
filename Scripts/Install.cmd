@@ -1,4 +1,4 @@
-::@echo off
+@echo off
 setlocal
 
 :: Make sure necessary items are defined

@@ -17,7 +17,7 @@
           "Jumpstation": false,
           "Name": "Pin Outlook to Taskbar",
           "Command": "cmd.exe",
-          "Arguments": "/C syspin.exe \"C:\\Program Files\\WindowsApps\\Microsoft.OutlookForWindows_1.2025.506.300_x64__8wekyb3d8bbwe\\olk.exe\" 5386"
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\WindowsApps\\Microsoft.OutlookForWindows_1.2025.506.300_x64__8wekyb3d8bbwe\\olk.exe\""
         },
         {
           "Id": "Teams-Pin",
@@ -26,9 +26,9 @@
           "Jumpstation": false,
           "Name": "Pin Teams to Taskbar",
           "Command": "cmd.exe",
-          "Arguments": "/C syspin.exe \"C:\\Program Files\\WindowsApps\\MSTeams_25072.1611.3570.1995_x64__8wekyb3d8bbwe\\ms-teams.exe\" 5386"
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\WindowsApps\\MSTeams_25072.1611.3570.1995_x64__8wekyb3d8bbwe\\ms-teams.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Prod-Slack",
@@ -37,8 +37,8 @@
       "Workstation": true,
       "Jumpstation": false,
       "Name": "Slack",
-      "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"InstallSlack.ps1\"",
+      "Command": "cmd.exe",
+      "Arguments": "/c RunWinget.cmd install SlackTechnologies.Slack",
       "PostTask": [
         {
           "Id": "Slack-Pin",
@@ -46,22 +46,22 @@
           "Workstation": true,
           "Jumpstation": false,
           "Name": "Pin Slack to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "C:\\Program Files\\WindowsApps\\com.tinyspeck.slackdesktop_4.44.59.0_x64__8yrtsj140pw4g\\app\\Slack.exe 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\slack\\slack.exe\""
         }
-	  ]
+ 	    ]
     },
-	{
-	  "Id": "Prod-Store",
+    {
+      "Id": "Prod-Store",
       "Group": "Productivity",
-	  "Hidden": false,
-	  "Workstation": true,
-	  "Jumpstation": false,
-	  "Name": "Unpin Microsoft Store from Taskbar",
-	  "Command": "powershell.exe",
-	  "Arguments": " -File \".\\UnPinStore.ps1\"",
+      "Hidden": false,
+      "Workstation": true,
+      "Jumpstation": false,
+      "Name": "Unpin Microsoft Store from Taskbar",
+      "Command": "powershell.exe",
+      "Arguments": " -File \".\\UnPinStore.ps1\"",
       "PostTask": [ ]
- 	},
+    },
     {
       "Id": "Editor-NotePad++",
       "Group": "Editor",
@@ -78,10 +78,10 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Pin Notepad++ to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\Notepad++\\notepad++.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Notepad++\\notepad++.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Editor-SlickEdit",
@@ -99,10 +99,10 @@
           "Workstation": false,
           "Jumpstation": false,
           "Name": "Pin SlickEdit to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\SlickEdit Pro 22.0.2\\win\\vs.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\SlickEdit Pro 22.0.2\\win\\vs.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Editor-VSCode",
@@ -120,8 +120,8 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Pin SlickEdit to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"%USERPROFILE%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\""
         },
         {
           "Id": "VSCode-C++",
@@ -213,10 +213,10 @@
           "Workstation": false,
           "Jumpstation": false,
           "Name": "Pin Visual Studio Community to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "SSH-Work",
@@ -306,17 +306,17 @@
           "Workstation": false,
           "Jumpstation": false,
           "Name": "Pin 010 Binary Editor to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files (x86)\\010 Editor v3\\010Editor.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files (x86)\\010 Editor v3\\010Editor.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Util-BeyondCompare",
       "Group": "Utility",
       "Hidden": false,
       "Workstation": true,
-      "Jumpstation": true,
+      "Jumpstation ": true,
       "Name": "Beyond Compare",
       "Command": "cmd.exe",
       "Arguments": "/c InstallBeyondCompare.cmd",
@@ -327,8 +327,8 @@
           "Workstation": false,
           "Jumpstation": false,
           "Name": "Pin Beyond Compare to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\Beyond Compare 4\\BCompare.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Beyond Compare 4\\BCompare.exe\""
         },
         {
           "Id": "BeyondCompare-Git",
@@ -339,7 +339,7 @@
           "Command": "cmd.exe",
           "Arguments": "/C \"GitUseBC4.cmd\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Util-PuTTY",
@@ -357,8 +357,8 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Pin PuTTY to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\PuTTY\\putty.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files\\PuTTY\\putty.exe\""
         },
         {
           "Id": "PuTTY-Work",
@@ -396,10 +396,10 @@
           "Workstation": true,
           "Jumpstation": false,
           "Name": "Pin Remote Desktop Connection Manager to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files\\SysInternals\\RDCMan.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Microsoft.Sysinternals.RDCMan_Microsoft.Winget.Source_8wekyb3d8bbwe\\RCDMan.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "Util-WinSCP",
@@ -412,15 +412,15 @@
       "Arguments": "/c RunWinget.cmd install WinSCP.Win.SCP",
       "PostTask": [
         {
-          "Id": "wINscp-Pin",
+          "Id": "WinSCP-Pin",
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
           "Name": "Pin WinSCP to Taskbar",
-          "Command": "syspin.exe",
-          "Arguments": "\"C:\\Program Files (x86)\\WinSCP\\WinSCP.exe\" 5386"
+          "Command": "cmd.exe",
+          "Arguments": "/C PinIt.cmd \"C:\\Program Files (x86)\\WinSCP\\WinSCP.exe\""
         }
-	  ]
+	    ]
     },
     {
       "Id": "VCS-Git",
@@ -477,7 +477,7 @@
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G10 clone master Gen10/master"
         }
-	  ]
+      ]
     },
     {
       "Id": "VCS-TortoiseGit",
@@ -519,7 +519,7 @@
           "Command": "cmd.exe",
           "Arguments": "/c RunSvn.cmd ${REPOS_BASE}\\G8 G8 checkout trunk"
         }
-	  ]
+	    ]
     }
   ]
 }
