@@ -39,7 +39,7 @@
           "Jumpstation": true,
           "Name": "C/C++ Extensions",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack ms-vscode.cpptools-themes"
+          "Arguments": "/C RunVSCode.cmd --install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack ms-vscode.cpptools-themes"
         },
         {
           "Id": "VSCode-CMake",
@@ -48,7 +48,7 @@
           "Jumpstation": true,
           "Name": "CMake Extensions",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension twxs.cmake josetr.cmake-language-support-vscode ms-vscode.cmake-tools"
+          "Arguments": "/C RunVSCode.cmd --install-extension twxs.cmake josetr.cmake-language-support-vscode ms-vscode.cmake-tools"
         },
         {
           "Id": "VSCode-DoxyGen",
@@ -57,7 +57,7 @@
           "Jumpstation": true,
           "Name": "DoxyGen Extension",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension cschlosser.doxdocgen"
+          "Arguments": "/C RunVSCode.cmd --install-extension cschlosser.doxdocgen"
         },
         {
           "Id": "VSCode-EDK2",
@@ -66,7 +66,7 @@
           "Jumpstation": true,
           "Name": "EDK2Code Extension",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension intel-corporation.edk2code"
+          "Arguments": "/C RunVSCode.cmd --install-extension intel-corporation.edk2code"
         },
         {
           "Id": "VSCode-GitLens",
@@ -75,7 +75,7 @@
           "Jumpstation": true,
           "Name": "GitLens Extension",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension eamodio.gitlens"
+          "Arguments": "/C RunVSCode.cmd --install-extension eamodio.gitlens"
         },
         {
           "Id": "VSCode-History",
@@ -84,7 +84,7 @@
           "Jumpstation": true,
           "Name": "Local History Extension",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension xyz.local-history"
+          "Arguments": "/C RunVSCode.cmd --install-extension xyz.local-history"
         },
         {
           "Id": "VSCode-Python",
@@ -93,7 +93,7 @@
           "Jumpstation": true,
           "Name": "Python Extensions",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension ms-python.python ms-python.vscode-pylance ms-python.debugpy"
+          "Arguments": "/C RunVSCode.cmd --install-extension ms-python.python ms-python.vscode-pylance ms-python.debugpy"
         },
         {
           "Id": "VSCode-SSH",
@@ -102,7 +102,7 @@
           "Jumpstation": true,
           "Name": "Remote SSH Extensions",
           "Command": "cmd.exe",
-          "Arguments": "/C code.exe --install-extension ms-vscode-remote.remote-ssh ms-vscode-remote.remote-ssh-edit ms-vscode.remote-explorer"
+          "Arguments": "/C RunVSCode.cmd --install-extension ms-vscode-remote.remote-ssh ms-vscode-remote.remote-ssh-edit ms-vscode.remote-explorer"
         }
       ]
     },
