@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 setlocal
 
 :: Make sure necessary items are defined
@@ -58,13 +58,12 @@ if ERRORLEVEL 1 exit /b 2
 echo Installing %NAME% ...
 if defined ALTINSTALL goto AltInstall
 pushd "%DESTINATION%"
-echo %PROGRAM% %OPTION%
-%PROGRAM% %OPTION%
+echo %PROGRAM% %OPTIONS%
+%PROGRAM% %OPTIONS%
 popd
 if ERRORLEVEL 1 exit /b 3
 exit /b 0
 
-: Run AltInstaller
 :AltInstall
 echo %ALTINSTALL%
 %ALTINSTALL%

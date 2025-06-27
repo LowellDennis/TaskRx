@@ -20,8 +20,11 @@ echo.
 set CODE=-1
 goto Exit
 
-:: Assume this is for work
+:: Make sure .ssh directory exists
 :Good
+call "%~dp0MyMkDir.cmd" "%USERPROFILE%\.ssh"
+
+:: Assume this is for work
 set WHICH=Work
 set SUFFIX=
 set GITHUB=github.hpe.com

@@ -21,4 +21,4 @@ git config --global mergetool.bc.trustExitCode true
 git config --global mergetool.keepBackup false
 
 :Done
-return 0
+exit /b 0

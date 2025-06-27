@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 setlocal
 
 :: Handle usage invocations
@@ -18,8 +18,11 @@ echo.
 set CODE=-1
 goto Exit
 
-:: Assume this is for work
+:: Make sure .ssh directory exists
 :Good
+call "%~dp0MyMkDir.cmd" "%USERPROFILE%\.ssh"
+
+:: Assume this is for work
 set WHICH=Work
 set SUFFIX=
 if "%1"=="Work" goto CheckExists
@@ -28,20 +31,15 @@ if "%1"=="Work" goto CheckExists
 set WHICH=Personal
 set SUFFIX=_personal
 
-:: Make sure Private Key file exists
-:CheckExists
-set CODE=1
-set MESSAGE=%WHICH% Private Key not found.
-if not exist "%USERPROFILE%\.ssh\id_ed25519%SUFFIX%" goto Done
-
 :: Check to see if targeted PPK file already exists
+:CheckExists
 set CODE=0
 set MESSAGE=%WHICH% PPK file already exists.
 if exist "%USERPROFILE%\.ssh\id_ed25519%SUFFIX%.ppk" goto Done
 
 :: Create PPK file
 echo Creating new %WHICH% PPK file ...
-set CODE=2
+set CODE=1
 set MESSAGE=Error creating %WHICH% PPK file.
 powershell.exe -ExecutionPolicy Bypass -File RunPuTTYGen.ps1 "%USERPROFILE%\.ssh\id_ed25519%SUFFIX%" "%USERPROFILE%\.ssh\id_ed25519%SUFFIX%.ppk"
 if ERRORLEVEL 1 goto Done
@@ -49,7 +47,6 @@ if ERRORLEVEL 1 goto Done
 :: PPK file was created
 set CODE=0
 set MESSAGE=%WHICH% PPK file successfully created!
-goto Done
 
 :: Show completion message and exit with appropriate return code
 :Done

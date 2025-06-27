@@ -23,14 +23,14 @@ goto Exit
 
 :: See if .gitignore file exists
 :Good
-if not exist %USERPROFILE%\.gitignore goto GitIgnore
+if not exist "%USERPROFILE%\.gitignore" goto GitIgnore
 echo %USERPROFILE%\.gitignore already exists
 goto Continue
 
 :: Copy default .gitignore
 :GitIgnore
-echo copy %~dp0..\Data\.gitignore %USERPROFILE%
-copy %~dp0.gitignore %USERPROFILE%
+echo copy "%~dp0.gitignore" "%USERPROFILE%"
+copy "%~dp0.gitignore" "%USERPROFILE%"
 if ERRORLEVEL 1 goto Exit
 
 :: Set Git to use given first and last name, email, and .gitignore file
@@ -44,8 +44,8 @@ if ERRORLEVEL 1 goto Exit
 echo git config --global user.email "%~3"
 git config --global user.email "%~3"
 if ERRORLEVEL 1 goto Exit
-echo git config --global core.excludefiles %USERPROFILE%\.gitignore
-git config --global core.excludefiles %USERPROFILE%\.gitignore
+echo git config --global core.excludefiles "%USERPROFILE%\.gitignore"
+git config --global core.excludefiles "%USERPROFILE%\.gitignore"
 if ERRORLEVEL 1 goto Exit
 
 :: Set the default merge of master branch to "--squash"

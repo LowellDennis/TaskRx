@@ -16,8 +16,11 @@ echo.
 set CODE=-1
 goto Exit
 
-:: Check to see if SSH config file already exists
+:: Make sure .ssh directory exists
 :Good
+call "%~dp0MyMkDir.cmd" "%USERPROFILE%\.ssh"
+
+:: Check to see if SSH config file already exists
 set CONFIG=%USERPROFILE%\.ssh\config
 set CODE=0
 set MESSAGE=SSH Config file already exists.

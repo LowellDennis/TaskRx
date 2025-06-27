@@ -45,7 +45,7 @@ if ERRORLEVEL 1 goto Done
 :Exists
 set MESSAGE=Clone failed!
 set CODE=2
-call %~d0Patience
+call "%~d0Patience"
 pushd "%~1"
 echo git clone git@github.hpe.com:HPE-ROM-TEAM/GNext.git "%~3"
 git clone git@github.hpe.com:HPE-ROM-TEAM/GNext.git "%~3" 2>&1
@@ -77,7 +77,7 @@ goto Usage
 :Pull
 set MESSAGE=Pull failed!
 set CODE=4
-call %~d0Patience
+call "%~d0Patience"
 pushd "%~1"
 echo git pull %~3
 git pull %~3 2>&1

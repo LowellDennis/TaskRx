@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 setlocal
 
 set NAME=Beyond Compare V4.4.7
@@ -9,5 +9,5 @@ set LICENSE=BC4Key.txt
 set OPTIONS=/SP- /VERYSILENT /NORESTART
 set INVOKE=
 
-call %~dp0Install.cmd
+call "%~dp0Install.cmd"
 endlocal && exit /b %ERRORLEVEL%
