@@ -1,123 +1,278 @@
-
 param (
-    [string]$email,
-    [string]$domain,
-    [string]$username
+    [string]$domain = "AMERICAS",
+    [string]$username = $(throw "Parameter 'username' is required."),
+    [string]$email = $(throw "Parameter 'email' is required."),
+    [string]$initials = $(throw "Parameter 'initials' is required.")
 )
 
-function Install-WebView2 {
-    Write-Output "Checking for WebView2 runtime..."
-    $webview2Key = "HKLM:\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"
-    if (-not (Test-Path $webview2Key)) {
-        Write-Output "WebView2 runtime not found. Downloading and installing..."
-        $webview2Installer = "https://go.microsoft.com/fwlink/p/?LinkId=2124703"
-        $webview2InstallerPath = "$env:TEMP\MicrosoftEdgeWebview2Setup.exe"
-        Invoke-WebRequest -Uri $webview2Installer -OutFile $webview2InstallerPath
-        Start-Process -FilePath $webview2InstallerPath -ArgumentList "/silent /install" -Wait
-        Write-Output "WebView2 runtime installed."
+# Global Variables
+$logIt   = $true
+$logFile = "$env:USERPROFILE\Downloads\InstallOffice.txt"
+
+function Write-Log {
+    param (
+        [string]$message
+    )
+    if ($logIt) {
+        Write-Output $message | Out-File -Append -FilePath $logFile
+    }
+    Write-Host $message
+}
+
+# Function to download and extract the Office Deployment Tool
+function DownloadAndExtractODT {
+    param (
+        [string]$odtUrl = "https://download.microsoft.com/download/6c1eeb25-cf8b-41d9-8d0d-cc1dbc032140/officedeploymenttool_18827-20140.exe",
+        [string]$downloadDir = "$env:USERPROFILE\Downloads"
+    )
+
+    # Set paths
+    $odtExePath = "$downloadDir\OfficeDeploymentTool.exe"
+
+    # Create Downloads directory if it doesn't exist
+    if (-not (Test-Path $downloadDir)) {
+        Write-Log "Creating Downloads directory at $downloadDir..."
+        try {
+            New-Item -ItemType Directory -Path $downloadDir -Force | Out-Null
+            Write-Log "Downloads directory created."
+        } catch {
+            Write-Log "Failed to create Downloads directory: $($_.Exception.Message)"
+            exit 1
+        }
+    }
+
+    # Download the Office Deployment Tool
+    Write-Log "Downloading Office Deployment Tool..."
+    try {
+        Invoke-WebRequest -Uri $odtUrl -OutFile $odtExePath -ErrorAction Stop
+        Write-Log "Downloaded Office Deployment Tool to $odtExePath."
+    } catch {
+        Write-Log "Failed to download Office Deployment Tool: $($_.Exception.Message)"
+        exit 1
+    }
+
+    # Run the ODT executable to extract files
+    Write-Log "Extracting Office Deployment Tool files..."
+    if (Test-Path $odtExePath) {
+        try {
+            Start-Process -FilePath $odtExePath -ArgumentList "/extract:$downloadDir", "/quiet" -Wait
+            Write-Log "Extraction completed successfully."
+        } catch {
+            Write-Log "Failed to extract Office Deployment Tool files: $($_.Exception.Message)"
+            exit 1
+        }
     } else {
-        Write-Output "WebView2 runtime is already installed."
+        Write-Log "Office Deployment Tool executable not found."
+        exit 1
     }
 }
 
-function Install-Microsoft365Apps {
-    Write-Output "Downloading Office Deployment Tool..."
-    $odtUrl = "https://download.microsoft.com/download/6c1eeb25-cf8b-41d9-8d0d-cc1dbc032140/officedeploymenttool_18730-20142.exe"
-    $odtPath = "$env:USERPROFILE\Downloads\OfficeDeploymentTool.exe"
-    Invoke-WebRequest -Uri $odtUrl -OutFile $odtPath
-    Write-Output "Extracting Office Deployment Tool..."
-    Start-Process -FilePath $odtPath -ArgumentList "/quiet /extract:$env:USERPROFILE\Downloads\ODT" -Wait
+# Function to check installed Office applications
+function GetInstalledOfficeApps {
+    Write-Log "Checking installed Office applications..."
 
-    Write-Output "Creating configuration.xml..."
-    $configXml = @"
+    $installedApps = @()
+
+    # Registry paths for Office applications
+    $officeRegistryPaths = @(
+        "HKLM:\SOFTWARE\Microsoft\Office\ClickToRun\Configuration",
+        "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",
+        "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall"
+    )
+
+    # List of Office applications to check
+    $officeAppIdentifiers = @{
+        "Word" = "Microsoft Word";
+        "Excel" = "Microsoft Excel";
+        "PowerPoint" = "Microsoft PowerPoint";
+        "Outlook" = "Microsoft Outlook";
+        "Access" = "Microsoft Access";
+        "Publisher" = "Microsoft Publisher";
+        "OneNote" = "Microsoft OneNote";
+        "Visio" = "Microsoft Visio";
+        "Teams" = "Microsoft Teams";
+        "SkypeForBusiness" = "Skype for Business"
+    }
+
+    try {
+        foreach ($registryPath in $officeRegistryPaths) {
+            foreach ($appId in $officeAppIdentifiers.Keys) {
+                $appName = $officeAppIdentifiers[$appId]
+                $registryQuery = Get-ChildItem -Path $registryPath -ErrorAction SilentlyContinue | Where-Object {
+                    $_.Name -match $appName
+                }
+
+                if ($registryQuery) {
+                    Write-Log "$appName is installed."
+                    $installedApps += $appId
+                }
+            }
+        }
+    } catch {
+        Write-Log "Failed to check installed applications: $($_.Exception.Message)"
+    }
+
+    return $installedApps
+}
+
+function CreateODTConfig {
+    param (
+        [string]$outputPath = "$env:USERPROFILE\Downloads\configuration.xml",
+        [ValidateSet("32", "64")]
+        [string]$edition = "64",
+        [ValidateSet("Current", "Monthly", "SemiAnnual", "SemiAnnualPreview")]
+        [string]$channel = "Current",
+        [ValidateSet("O365ProPlusRetail", "VisioProRetail", "ProjectProRetail")]
+        [string]$productID = "O365ProPlusRetail",
+        [string]$language = "en-us",
+        [bool]$autoActivate = $true,
+        [ValidateSet("None", "Full")]
+        [string]$displayLevel = "None"
+    )
+
+    # Get already installed Office apps
+    $installedApps = GetInstalledOfficeApps
+
+    # Validate inputs for excluded apps
+    $validApps = @("Access", "Publisher", "Outlook", "Teams", "SkypeForBusiness", "Word", "Excel", "PowerPoint", "OneNote", "Visio")
+    foreach ($app in $installedApps) {
+        if ($app -notin $validApps) {
+            Write-Log "Invalid installed app detected: $app. Skipping."
+        }
+    }
+
+    # Build XML content
+    Write-Log "Creating ODT configuration XML file..."
+    $xmlContent = @"
 <Configuration>
-  <Add OfficeClientEdition="64" Channel="Current">
-    <Product ID="O365ProPlusRetail">
-      <Language ID="en-us" />
-      <ExcludeApp ID="Access" />
-      <ExcludeApp ID="Outlook" />
-      <ExcludeApp ID="Publisher" />
+  <Add OfficeClientEdition="$edition" Channel="$channel">
+    <Product ID="$productID">
+      <Language ID="$language" />
+"@
+
+    foreach ($app in $installedApps) {
+        $xmlContent += "      <ExcludeApp ID=""$app"" />`n"
+    }
+
+    $xmlContent += @"
     </Product>
   </Add>
-  <Display Level="None" AcceptEULA="TRUE" />
-  <Property Name="AUTOACTIVATE" Value="1" />
-  <Property Name="FORCEAPPSHUTDOWN" Value="TRUE" />
-  <Property Name="DeviceBasedLicensing" Value="1" />
-</Configuration>
+  <Display Level="$displayLevel" AcceptEULA="True" />
 "@
-    $configXmlPath = "$env:USERPROFILE\Downloads\ODT\configuration.xml"
-    $configXml | Out-File -FilePath $configXmlPath -Encoding utf8
 
-    Write-Output "Installing Excel, OneNote, PowerPoint, and Word ..."
-    Start-Process -FilePath "$env:USERPROFILE\Downloads\ODT\setup.exe" -Wait
-    Write-Output "Excel, OneNote, PowerPoint, and Word installed!"
-}
-
-function Install-NewOutlook {
-    Write-Host "Downloading New Outlook installer..."
-    $newOutlookUrl = "https://outlook.office.com/OutlookSetup.exe"
-    $newOutlookPath = "$env:TEMP\OutlookSetup.exe"
-    Invoke-WebRequest -Uri $newOutlookUrl -OutFile $newOutlookPath
-
-    Write-Host "Installing Outlook(new)..."
-    Start-Process -FilePath $newOutlookPath -ArgumentList "/silent /install" -Wait
-    Write-Host "Outlook(new) installed."
-}
-
-function Install-NewTeams {
-    Write-Output "Downloading Teams(new) installer..."
-    $newTeamsUrl = "https://aka.ms/teamsbootstrapper"
-    $newTeamsPath = "$env:USERPROFILE\Downloads\TeamsBootstrapper.exe"
-    Invoke-WebRequest -Uri $newTeamsUrl -OutFile $newTeamsPath
-
-    Write-Output "Installing Teams(new)..."
-    Start-Process -FilePath $newTeamsPath -ArgumentList "/silent /install" -Wait
-    Write-Output "Teams(new) installed."
-}
-
-function PostInstallChecks {
-    Write-Output "Performing post-installation checks..."
-    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\EXCEL.EXE") {
-        Write-Output "Excel installed successfully."
-    } else {
-        Write-Output "Excel installation failed."
+    if ($autoActivate) {
+        $xmlContent += "  <Property Name=""AUTOACTIVATE"" Value=""1"" />`n"
     }
 
-    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\ONENOTE.EXE") {
-        Write-Output "OneNote installed successfully."
-    } else {
-        Write-Output "OneNote installation failed."
-    }
+    $xmlContent += "</Configuration>"
 
-    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\POWERPNT.EXE") {
-        Write-Output "PowerPoint installed successfully."
-    } else {
-        Write-Output "PowerPoint installation failed."
-    }
-
-    if (Test-Path "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE") {
-        Write-Output "Word installed successfully."
-    } else {
-        Write-Output "Word installation failed."
-    }
-
-    if (Test-Path "C:\Program Files\Microsoft\Outlook\Outlook.exe") {
-        Write-Output "Outlook(new) installed successfully."
-    } else {
-        Write-Output "Outlook(new) installation failed."
-    }
-
-    if (Test-Path "C:\Program Files\Microsoft\Teams\current\Teams.exe") {
-        Write-Output "Teams(new) installed successfully."
-    } else {
-        Write-Output "Teams(new) installation failed."
+    try {
+        Set-Content -Path $outputPath -Value $xmlContent
+        Write-Log "ODT Configuration XML file created at $outputPath."
+    } catch {
+        Write-Log "Failed to create ODT configuration XML file: $($_.Exception.Message)"
+        exit 1
     }
 }
 
-Write-Output "Starting Microsoft Office installation..."
-Install-WebView2
-Install-Microsoft365Apps
-Install-NewOutlook
-Install-NewTeams
-PostInstallChecks
-Write-Output "Microsot Office Installation completed."
+function InstallOfficeWithODT {
+    param (
+        [string]$odtSetupPath = "$env:USERPROFILE\Downloads\setup.exe",
+        [string]$configPath = "$env:USERPROFILE\Downloads\configuration.xml"
+    )
+
+    Write-Log "Starting Office install/upgrade using ODT..."
+
+    # Check if configuration file excludes all applications
+    $excludedApps = Get-Content -Path $configPath | Select-String -Pattern "<ExcludeApp"
+    if ($excludedApps.Count -eq 0) {
+        Write-Log "No applications to install or upgrade using ODT. Skipping ODT execution."
+        return
+    }
+
+    if ((Test-Path $odtSetupPath) -and (Test-Path $configPath)) {
+        try {
+            $process = Start-Process -FilePath $odtSetupPath -ArgumentList "/configure $configPath" -PassThru -WindowStyle Hidden
+            Write-Host -NoNewline "Install/upgrade processing"
+            $timeout = 3600 # Timeout after 1 hour
+            $elapsedTime = 0
+            while (-not $process.HasExited -and $elapsedTime -lt $timeout) {
+                Write-Host -NoNewline "."
+                Start-Sleep -Seconds 5
+                $elapsedTime += 5
+            }
+
+            if ($process.HasExited) {
+                if ($process.ExitCode -eq 0) {
+                    Write-Log "Office install/upgrade using ODT completed successfully."
+                } else {
+                    Write-Log "Office install/upgrade using ODT failed with exit code: $($process.ExitCode)"
+                    exit 1
+                }
+            } else {
+                Write-Log "Office install/upgrade with ODT timed out after $($timeout / 60) minutes."
+                exit 1
+            }
+        } catch {
+            Write-Log "Failed to install/upgrade Office with ODT: $($_.Exception.Message)"
+            exit 1
+        }
+    } else {
+        Write-Log "Either setup.exe or configuration.xml not found in the Downloads directory."
+        exit 1
+    }
+}
+
+function Cleanup {
+    Write-Log "Cleaning up temporary files..."
+    $filesToRemove = @("$env:USERPROFILE\Downloads\OfficeDeploymentTool.exe", "$env:USERPROFILE\Downloads\configuration.xml", "$env:USERPROFILE\Downloads\setup.exe")
+    foreach ($file in $filesToRemove) {
+        if (Test-Path $file) {
+            try {
+                Remove-Item -Path $file -Force
+                Write-Log "Removed temporary file: $file"
+            } catch {
+                Write-Log "Failed to remove temporary file: $file. Error: $($_.Exception.Message)"
+            }
+        }
+    }
+}
+
+# Auto-elevation check
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
+    [Security.Principal.WindowsBuiltInRole] "Administrator")) {
+
+    $paramList = $PSBoundParameters.GetEnumerator() | ForEach-Object {
+        $key = $_.Key
+        $value = $_.Value
+        if ($value -is [switch] -and $value.IsPresent) {
+            "-$key"
+        } elseif ($value -is [string]) {
+            "-$key `"$value`""
+        } else {
+            "-$key $value"
+        }
+    }
+
+    $scriptPath = $MyInvocation.MyCommand.Definition
+    $paramString = $paramList -join ' '
+
+    Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`" $paramString"
+    Get-Content -Path $logFile
+    Remove-Item -Path $logFile -Force
+} else {
+    $logIt = $false
+}
+
+# Main Script Execution
+try {
+    Write-Log "Starting the Microsoft Office Install/Upgrade script..."
+    DownloadAndExtractODT
+    CreateODTConfig
+    InstallOfficeWithODT
+    Cleanup
+    Write-Log "Microsoft Office installation/upgrade completed successfully."
+} catch {
+    Write-Log "An error occurred during installation: $($_.Exception.Message)"
+    exit 1
+}
