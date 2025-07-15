@@ -63,9 +63,9 @@ namespace TaskRx
         public bool Hidden { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
-        public string Name { get; set; }
-        public string Command { get; set; }
-        public string Arguments { get; set; }
+        public string Name { get; set; } = string.Empty; // Fix: Initialize with a default value
+        public string Command { get; set; } = string.Empty; // Fix: Initialize with a default value
+        public string Arguments { get; set; } = string.Empty; // Fix: Initialize with a default value
     }
 
     /// <summary>

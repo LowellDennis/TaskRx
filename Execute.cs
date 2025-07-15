@@ -170,9 +170,6 @@ namespace TaskRx
         private string currentTaskId = null;
         private string currentPostTaskId = null;
 
-        // Task tracking
-        private int taskCounter = 0;
-
         private void Log(string message)
         {
             // Call the overloaded method with auto-detection of errors
