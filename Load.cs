@@ -83,32 +83,41 @@ namespace TaskRx
                     string userInfoJsonContent = await File.ReadAllTextAsync(userInfoFilePath);
                     userInfo = JsonSerializer.Deserialize<UserInfo>(userInfoJsonContent);
 
-                    // UI updates must be done on the UI thread
-                    await Task.Run(() =>
+                    if (userInfo != null) // Ensure userInfo is not null
                     {
-                        this.Invoke((MethodInvoker)delegate
+                        // UI updates must be done on the UI thread
+                        await Task.Run(() =>
                         {
-                            txtFirst.Text = userInfo.First;
-                            txtLast.Text = userInfo.Last;
-                            txtDomain.Text = userInfo.Domain;
-                            txtUsername.Text = userInfo.Username;
-                            txtWork.Text = userInfo.Work;
-                            txtPersonal.Text = userInfo.Personal;
-
-                            // Load the ReposFolder value if it exists
-                            if (!string.IsNullOrEmpty(userInfo.ReposFolder))
+                            this.Invoke((MethodInvoker)delegate
                             {
-                                txtBase.Text = userInfo.ReposFolder;
-                                ReposFolder = userInfo.ReposFolder;
+                                txtFirst.Text    = userInfo.First    ?? string.Empty;
+                                txtLast.Text     = userInfo.Last     ?? string.Empty;
+                                txtInitials.Text = userInfo.Initials ?? string.Empty;
+                                txtDomain.Text   = userInfo.Domain   ?? string.Empty;
+                                txtUsername.Text = userInfo.Username ?? string.Empty;
+                                txtWork.Text     = userInfo.Work     ?? string.Empty;
+                                txtPersonal.Text = userInfo.Personal ?? string.Empty;
 
-                                // Validate if the directory exists
-                                if (!Directory.Exists(userInfo.ReposFolder))
+                                // Load the ReposFolder value if it exists
+                                if (!string.IsNullOrEmpty(userInfo.ReposFolder))
                                 {
-                                    executionStatus.Text = "Directory does not exist: " + userInfo.ReposFolder;
+                                    txtBase.Text = userInfo.ReposFolder;
+                                    ReposFolder = userInfo.ReposFolder;
+
+                                    // Validate if the directory exists
+                                    if (!Directory.Exists(userInfo.ReposFolder))
+                                    {
+                                        executionStatus.Text = "Directory does not exist: " + userInfo.ReposFolder;
+                                    }
                                 }
-                            }
+                            });
                         });
-                    });
+                    }
+                    else
+                    {
+                        ExitWithMessage("UserInfo.json file is empty or invalid", "JSON Error", 3);
+                        return false;
+                    }
                     return true;
                 }
                 catch

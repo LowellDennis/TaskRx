@@ -101,6 +101,7 @@ namespace TaskRx
             userInfo = new UserInfo();
             userInfo.First = txtFirst.Text;
             userInfo.Last = txtLast.Text;
+            userInfo.Initials = txtInitials.Text;
             userInfo.Domain = txtDomain.Text;
             userInfo.Username = txtUsername.Text;
             userInfo.Work = txtWork.Text;

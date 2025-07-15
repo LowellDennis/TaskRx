@@ -23,6 +23,9 @@ namespace TaskRx
         // Global variable containing the current user's domain
         private string Domain = string.Empty;
 
+        // Global variable containing the current user's initials
+        private string Initials = string.Empty;
+
         // Global variable containing the current user's username
         private string Username = string.Empty;
 
@@ -97,6 +100,7 @@ namespace TaskRx
         public string? First { get; set; }
         public string? Last { get; set; }
         public string? Domain { get; set; }
+        public string? Initials { get; set; }
         public string? Username { get; set; }
         public string? Work { get; set; }
         public string? Personal { get; set; }

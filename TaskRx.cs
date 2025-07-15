@@ -35,6 +35,7 @@ namespace TaskRx
             // Check if all text boxes are filled
             bool allTextBoxesFilled = !string.IsNullOrEmpty(txtFirst.Text) &&
                                       !string.IsNullOrEmpty(txtLast.Text) &&
+                                      !string.IsNullOrEmpty(txtInitials.Text) &&
                                       !string.IsNullOrEmpty(txtDomain.Text) &&
                                       !string.IsNullOrEmpty(txtWork.Text) &&
                                       !string.IsNullOrEmpty(txtPersonal.Text) &&
@@ -63,6 +64,7 @@ namespace TaskRx
         private void txtFirst_Changed(object sender, EventArgs e)
         {
             txtFirst.Text = txtFirst.Text.Trim();
+            GenerateInitials();
             GenerateUsername();
             GenerateEmail();
             UpdateExecuteButtonState();
@@ -71,16 +73,26 @@ namespace TaskRx
         private void txtLast_Changed(object sender, EventArgs e)
         {
             txtLast.Text = txtLast.Text.Trim();
+            GenerateInitials();
             GenerateUsername();
             GenerateEmail();
             UpdateExecuteButtonState();
         }
 
+        private void txtInitials_TextChanged(object sender, EventArgs e)
+        {
+            if (txtInitials.Modified)
+            {
+                Initials = txtInitials.Text;
+            }
+            UpdateExecuteButtonState();
+        }
+
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
-            if (txtDomain.Modified)
+            if (txtUsername.Modified)
             {
-                Username = txtDomain.Text;
+                Username = txtUsername.Text;
             }
             UpdateExecuteButtonState();
         }
@@ -99,6 +111,25 @@ namespace TaskRx
             if (txtPersonal.Modified)
             {
                 PersonalEmail = txtPersonal.Text;
+            }
+            UpdateExecuteButtonState();
+        }
+
+        private void txtBase_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBase.Modified)
+            {
+                ReposFolder = txtBase.Text;
+
+                // Validate if the directory exists
+                if (!string.IsNullOrEmpty(txtBase.Text) && !Directory.Exists(txtBase.Text))
+                {
+                    executionStatus.Text = "Directory does not exist: " + txtBase.Text;
+                }
+                else
+                {
+                    executionStatus.Text = string.Empty;
+                }
             }
             UpdateExecuteButtonState();
         }
@@ -303,6 +334,15 @@ namespace TaskRx
             }
         }
 
+        private void GenerateInitials()
+        {
+            if (string.IsNullOrEmpty(Initials))
+            {
+                char First = (txtFirst.Text.Length > 0) ? txtFirst.Text[0] : ' ';
+                char Last = (txtLast.Text.Length > 0) ? txtLast.Text[0] : ' ';
+                txtInitials.Text = $"{First}{Last}";
+            }
+        }
         private void GenerateUsername()
         {
             if (string.IsNullOrEmpty(Username))
@@ -525,25 +565,6 @@ namespace TaskRx
             }
 
             // Update the execute button state
-            UpdateExecuteButtonState();
-        }
-
-        private void txtBase_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBase.Modified)
-            {
-                ReposFolder = txtBase.Text;
-
-                // Validate if the directory exists
-                if (!string.IsNullOrEmpty(txtBase.Text) && !Directory.Exists(txtBase.Text))
-                {
-                    executionStatus.Text = "Directory does not exist: " + txtBase.Text;
-                }
-                else
-                {
-                    executionStatus.Text = string.Empty;
-                }
-            }
             UpdateExecuteButtonState();
         }
 
