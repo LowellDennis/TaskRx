@@ -496,6 +496,7 @@ namespace TaskRx
             // Add user information variables
             variableDictionary["FIRST_NAME"] = txtFirst.Text.Trim();
             variableDictionary["LAST_NAME"] = txtLast.Text.Trim();
+            variableDictionary["INITIALS"] = txtInitials.Text.Trim();
             variableDictionary["FULL_NAME"] = txtFirst.Text.Trim() + " " + txtLast.Text.Trim();
             variableDictionary["DOMAIN"] = txtDomain.Text.Trim();
             variableDictionary["USERNAME"] = txtUsername.Text.Trim();

@@ -8,7 +8,7 @@
       "Jumpstation": false,
       "Name": "Microsoft Office",
       "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"InstallOffice.ps1\" -email \"${WORK_EMAIL}\" -domain \"${DOMAIN}\" -username \"${USERNAME}\"",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallOffice.ps1\" -domain \"${DOMAIN}\" -username \"${USERNAME}\" -email \"${WORK_EMAIL}\" -initials \"${INITIALS}\"",
       "PostTask": [
         {
           "Id": "Outlook-Pin",
