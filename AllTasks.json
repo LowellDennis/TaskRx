@@ -63,6 +63,17 @@
       "PostTask": [ ]
     },
     {
+      "Id": "Prod-LongPaths",
+      "Group": "Productivity",
+      "Hidden": true,
+      "Workstation": true,
+      "Jumpstation": false,
+      "Name": "Enable Long Paths",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\" -domain \"${DOMAIN}\" -username \"${USERNAME}\"",
+      "PostTask": [ ]
+    },
+    {
       "Id": "Editor-NotePad++",
       "Group": "Editor",
       "Hidden": false,
@@ -432,6 +443,15 @@
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Git.Git",
       "PostTask": [
+        {
+          "Id": "Git-Configure",
+          "Hidden": true,
+          "Workstation": true,
+          "Jumpstation": true,
+          "Name": "Configure Git",
+          "Command": "cmd.exe",
+          "Arguments": "/c GitGlobal.cmd ${FIRST} ${LAST} {WORK_EMAIL}"
+        },
         {
           "Id": "Git-Gen13",
           "Hidden": false,

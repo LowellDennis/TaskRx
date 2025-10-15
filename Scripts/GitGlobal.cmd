@@ -51,5 +51,8 @@ if ERRORLEVEL 1 goto Exit
 :: Set the default merge of master branch to "--squash"
 git config branch.master.mergeOptions "--squash"
 
+:: Enable long paths
+git config --system core.longpaths true
+
 :Exit
 endlocal && exit /b %ERRORLEVEL%
