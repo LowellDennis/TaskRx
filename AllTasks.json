@@ -70,7 +70,7 @@
       "Jumpstation": false,
       "Name": "Enable Long Paths",
       "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.psi.ps1\"",
+      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\"",
       "PostTask": [ ]
     },
     {
