@@ -70,7 +70,18 @@
       "Jumpstation": false,
       "Name": "Enable Long Paths",
       "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\" -domain \"${DOMAIN}\" -username \"${USERNAME}\"",
+      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.psi.ps1\"",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Prod-WinGet",
+      "Group": "Productivity",
+      "Hidden": true,
+      "Workstation": true,
+      "Jumpstation": true,
+      "Name": "Install/Update WinGet",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
       "PostTask": [ ]
     },
     {
@@ -269,8 +280,8 @@
       "Workstation": true,
       "Jumpstation": true,
       "Name": "OpenSSH",
-      "Command": "powershell",
-      "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0'\"",
+      "Command": "powershell.exe",
+      "Arguments": "-WindowStyle Minimized -Command \"Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0\"",
       "PostTask": [
         {
           "Id": "OpenSSH-Client",
@@ -278,8 +289,8 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Install OpenSSH Client",
-          "Command": "powershell",
-          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0'\""
+          "Command": "powershell.exe",
+          "Arguments": "-WindowStyle Minimized -Command \"Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0\""
         },
         {
           "Id": "OpenSSH-Service",
@@ -287,8 +298,8 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Start OpenSSH Service",
-          "Command": "powershell",
-          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Start-Service sshd'\""
+          "Command": "powershell.exe",
+          "Arguments": "-WindowStyle Minimized -Command \"Start-Service sshd\""
         },
         {
           "Id": "OpenSSH-Auto",
@@ -296,8 +307,8 @@
           "Workstation": true,
           "Jumpstation": true,
           "Name": "Set OpenSSH to Start Automatically on Startup",
-          "Command": "powershell",
-          "Arguments": "-WindowStyle Minimized -Command \"Start-Process powershell -WindowStyle Minimized -Verb RunAs -ArgumentList '-WindowStyle Minimized -Command Set-Service -Name sshd -StartupType \\\"Automatic\\\"'\""
+          "Command": "powershell.exe",
+          "Arguments": "-WindowStyle Minimized -Command \"Set-Service -Name sshd -StartupType Automatic\""
         }
       ]
     },

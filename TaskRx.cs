@@ -176,21 +176,6 @@ namespace TaskRx
         }
 
         /// <summary>
-        /// Determines if a command/arguments pair references WinGet
-        /// </summary>
-        /// <param name="command"></param>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        private bool ReferencesWinGet(string command, string arguments)
-        {
-            if ((command != null) && (command.IndexOf("winget", StringComparison.OrdinalIgnoreCase) >= 0))
-            {
-                return true;
-            }
-            return ((arguments != null) && (arguments.IndexOf("winget", StringComparison.OrdinalIgnoreCase) >= 0));
-        }
-
-        /// <summary>
         /// Handles the click of the Execute button
         /// </summary>
         /// <param name="sender"></param>
@@ -217,122 +202,12 @@ namespace TaskRx
             // Add remaining tasks to execution list
             AddCheckedTasks(setupTabControl);
 
-            // Check if winget is needed by examining the setupCommand and UpdateCommand strings
-            bool wingetNeeded = false;
-            foreach (ExecutionTask task in executionTasks)
-            {
-                // Check main task commands
-                MainTask mainTask = allTasks[task.Id];
-                if (ReferencesWinGet(mainTask.Command, mainTask.Arguments))
-                {
-                    wingetNeeded = true;
-                    break;
-                }
-
-                // Check post task commands
-                foreach (ExecuteTask postTask in task.PostTasks)
-                {
-                    PostTask post = allPostTasks[postTask.Id];
-                    if (ReferencesWinGet(post.Command, post.Arguments))
-                    {
-                        wingetNeeded = true;
-                        break;
-                    }
-                }
-
-                if (wingetNeeded)
-                {
-                    break;
-                }
-            }
-
-            // If winget is needed, ensure the latest version is installed
-            if (wingetNeeded)
-            {
-                UpdateStatus("Winget installation check ...");
-                UpdateOutputTextBox("PLEASE BE PATIENT, this could take a while!", true);
-                var result = await InsureLatestWingetIsInstalled();
-                UpdateOutputTextBox($"{result.Output.Trim()}\nWinget check result: Exit Code = {result.ExitCode}", result.ExitCode != 0);
-                UpdateStatus("Winget installation check completed.");
-            }
-
             // Save UserTasks.json
             SaveUserTasks();
 
             // Execute selected tasks
             ExecuteTasks();
             // Note: The application will exit if the user chooses to do so in the ExecuteTasks method
-        }
-
-        // Function to ensure the latest version of Winget is installed
-        private async Task<(string Output, int ExitCode)> InsureLatestWingetIsInstalled()
-        {
-            try
-            {
-                // Create a temporary output file for elevation purposes
-                string tempOutputFile = Path.Combine(Path.GetTempPath(), $"ps_output_{Guid.NewGuid()}.txt");
-
-                // We need to use Process for elevation, but we'll use a simpler approach
-                // that leverages the temporary file for output capture
-                string installWinGetScript = Path.Combine(PathConfig.ScriptsPath, "InstallWinGet.ps1");
-                string psCommand = $@"
-                    try {{
-                        $ErrorActionPreference = 'Continue'
-                        $output = & '{installWinGetScript}' 2>&1 | Out-String
-                        $exitCode = $LASTEXITCODE
-                        if ($null -eq $exitCode) {{ $exitCode = 0 }}
-                        $output | Out-File -FilePath '{tempOutputFile}' -Encoding utf8
-                        [System.Environment]::ExitCode = $exitCode
-                    }} catch {{
-                        $_ | Out-File -FilePath '{tempOutputFile}' -Encoding utf8 -Append
-                        [System.Environment]::ExitCode = 1
-                    }}
-                ";
-
-                // StartInfo settings to run the script with elevation
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = "powershell.exe",
-                    Arguments = $"-WindowStyle Minimized -ExecutionPolicy Bypass -Command \"{psCommand}\"",
-                    Verb = "runas", // This is the key property for elevation
-                    UseShellExecute = true, // Required for the Verb property to work
-                    WindowStyle = ProcessWindowStyle.Minimized, // Minimize the window
-                    WorkingDirectory = PathConfig.ScriptsPath
-                };
-
-                using (Process? process = Process.Start(psi))
-                {
-                    if (process == null)
-                    {
-                        return ("Failed to start process", -1);
-                    }
-
-                    // Wait for the process to exit
-                    await process.WaitForExitAsync();
-
-                    // Load the output from the temporary file
-                    string output = "";
-                    if (File.Exists(tempOutputFile))
-                    {
-                        // Give the file system a moment to complete writing
-                        await System.Threading.Tasks.Task.Delay(100);
-
-                        // Read temporary file contents
-                        output = await File.ReadAllTextAsync(tempOutputFile);
-
-                        // Remove temporary file
-                        File.Delete(tempOutputFile);
-                    }
-
-                    // Return output and exit code
-                    return (output, process.ExitCode);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Give error information and return code
-                return ($"Exception: {ex.Message}", -2);
-            }
         }
 
         private void GenerateInitials()
