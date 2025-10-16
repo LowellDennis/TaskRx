@@ -18,7 +18,7 @@ namespace TaskRx
             if (!isUpdateMode)
             {
                 // Loop through all possible tasks
-                foreach (var task in taskList.Tasks)
+                foreach (var task in taskList.Tasks ?? new List<MainTask>())
                 {
                     // Look for auto tasks
                     if (task.Auto == true)
@@ -27,7 +27,7 @@ namespace TaskRx
                         var taskItem = new ExecutionTask { Id = task.Id, Auto = true, PostTasks = new List<ExecuteTask>() };
 
                         // Look for auto post tasks
-                        foreach (var postTask in task.PostTask)
+                        foreach (var postTask in task.PostTask ?? new List<PostTask>())
                         {
                             if (postTask.Auto)
                             {
@@ -150,7 +150,7 @@ namespace TaskRx
                 // Add any post task that are not hidden
                 foreach (ExecuteTask postTask in task.PostTasks)
                 {
-                    if (!postTask.Auto)
+                    if (!postTask.Auto && postTask.Id != null)
                     {
                         user.PostTasks.Add(postTask.Id);
                     }
@@ -177,8 +177,8 @@ namespace TaskRx
         private Dictionary<string, bool> postTaskErrorStatus = new Dictionary<string, bool>();
 
         // Current task and post-task being executed
-        private string currentTaskId = null;
-        private string currentPostTaskId = null;
+        private string? currentTaskId = null;
+        private string? currentPostTaskId = null;
 
         private void Log(string message)
         {
@@ -531,7 +531,7 @@ namespace TaskRx
             return regex.Replace(text, match =>
             {
                 string variableName = match.Groups[1].Value;
-                if (variableDictionary.TryGetValue(variableName, out string value))
+                if (variableDictionary?.TryGetValue(variableName, out string? value) == true && value != null)
                     return value;
                 else
                     return match.Value; // Keep the original if variable not found
@@ -612,6 +612,7 @@ namespace TaskRx
             try
             {
                 // Get the post task details
+                if (postTask.Id == null) return;
                 PostTask task = allPostTasks[postTask.Id];
 
                 // Replace variables in command and arguments

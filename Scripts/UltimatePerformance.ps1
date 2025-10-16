@@ -5,7 +5,7 @@ Write-Host "Enabling Ultimate Performance power plan..."
 
 try {
     # Enable Ultimate Performance power plan (this is a hidden plan by default)
-    $result = powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+    powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
 
     if ($LASTEXITCODE -eq 0) {
         Write-Host "Ultimate Performance power plan enabled successfully."

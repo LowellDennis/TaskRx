@@ -25,21 +25,24 @@ namespace TaskRx
             {
                 // Load AllTasks.json in allTasks
                 string jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                taskList = JsonSerializer.Deserialize<TaskList>(jsonContent);
+                taskList = JsonSerializer.Deserialize<TaskList>(jsonContent) ?? new TaskList();
 
                 // Initialize the dictionaries
                 allTasks = new Dictionary<string, MainTask>();
                 allPostTasks = new Dictionary<string, PostTask>();
 
                 // Build allTasks and allPostTasks dictionaries
-                foreach (MainTask task in taskList.Tasks)
+                foreach (MainTask task in taskList.Tasks ?? new List<MainTask>())
                 {
                     try
                     {
                         allTasks.Add(task.Id, task);
-                        foreach (PostTask postTask in task.PostTask)
+                        foreach (PostTask postTask in task.PostTask ?? new List<PostTask>())
                         {
-                            allPostTasks.Add(postTask.Id, postTask);
+                            if (postTask.Id != null)
+                            {
+                                allPostTasks.Add(postTask.Id, postTask);
+                            }
                         }
                     }
                     catch
@@ -81,7 +84,7 @@ namespace TaskRx
                 try
                 {
                     string userInfoJsonContent = await File.ReadAllTextAsync(userInfoFilePath);
-                    userInfo = JsonSerializer.Deserialize<UserInfo>(userInfoJsonContent);
+                    userInfo = JsonSerializer.Deserialize<UserInfo>(userInfoJsonContent) ?? new UserInfo();
 
                     if (userInfo != null) // Ensure userInfo is not null
                     {
@@ -181,7 +184,7 @@ namespace TaskRx
                 try
                 {
                     string userTasksJsonContent = await File.ReadAllTextAsync(userTasksFilePath);
-                    userTasks = JsonSerializer.Deserialize<List<UserTask>>(userTasksJsonContent);
+                    userTasks = JsonSerializer.Deserialize<List<UserTask>>(userTasksJsonContent) ?? new List<UserTask>();
                     return true;
                 }
                 catch
@@ -213,7 +216,7 @@ namespace TaskRx
 
             // Determine the different task groups
             // Include ALL tasks (both auto and visible) to ensure hidden tasks appear in UI
-            var groups = taskList.Tasks.GroupBy(t => t.Group);
+            var groups = (taskList.Tasks ?? new List<MainTask>()).GroupBy(t => t.Group);
 
             // Create a tab for each task group
             specificPostTasks = new Dictionary<string, List<PostTask>>();
@@ -329,7 +332,7 @@ namespace TaskRx
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TaskRx_Load(object sender, EventArgs e)
+        private void TaskRx_Load(object? sender, EventArgs e)
         {
             // Start the async initialization process
             _ = InitializeFormAsync();

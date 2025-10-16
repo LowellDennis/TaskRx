@@ -48,8 +48,8 @@ namespace TaskRx.Utilities
             bool sourceFilesExist = false;
             for (int i = 0; i < 3; i++)
             {
-                projectRootCandidate = Path.GetDirectoryName(projectRootCandidate);
-                if (projectRootCandidate == null) break;
+                projectRootCandidate = Path.GetDirectoryName(projectRootCandidate) ?? string.Empty;
+                if (string.IsNullOrEmpty(projectRootCandidate)) break;
 
                 // Check for typical development files
                 if (File.Exists(Path.Combine(projectRootCandidate, "TaskRx.csproj")) ||
