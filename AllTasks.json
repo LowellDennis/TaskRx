@@ -1,6 +1,50 @@
 {
   "Tasks": [
     {
+      "Id": "Sys-LongPaths",
+      "Group": "System",
+      "Auto": true,
+      "Workstation": true,
+      "Jumpstation": false,
+      "Name": "Enable Long Paths",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\"",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Sys-WinGet",
+      "Group": "System",
+      "Auto": true,
+      "Workstation": true,
+      "Jumpstation": true,
+      "Name": "Install/Update WinGet",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Sys-Store",
+      "Group": "System",
+      "Auto": false,
+      "Workstation": true,
+      "Jumpstation": false,
+      "Name": "Unpin Microsoft Store from Taskbar",
+      "Command": "powershell.exe",
+      "Arguments": " -File \".\\UnPinStore.ps1\"",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Sys-Ultimate",
+      "Group": "System",
+      "Auto": false,
+      "Workstation": true,
+      "Jumpstation": false,
+      "Name": "Enable Ultimate Performace",
+      "Command": "powershell.exe",
+      "Arguments": " -File \".\\UltimatePerformance.ps1\"",
+      "PostTask": [ ]
+    },
+    {
       "Id": "Prod-Office",
       "Group": "Productivity",
       "Hidden": false,
@@ -50,39 +94,6 @@
           "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\slack\\slack.exe\""
         }
  	    ]
-    },
-    {
-      "Id": "Prod-Store",
-      "Group": "Productivity",
-      "Hidden": false,
-      "Workstation": true,
-      "Jumpstation": false,
-      "Name": "Unpin Microsoft Store from Taskbar",
-      "Command": "powershell.exe",
-      "Arguments": " -File \".\\UnPinStore.ps1\"",
-      "PostTask": [ ]
-    },
-    {
-      "Id": "Prod-LongPaths",
-      "Group": "Productivity",
-      "Hidden": true,
-      "Workstation": true,
-      "Jumpstation": false,
-      "Name": "Enable Long Paths",
-      "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\"",
-      "PostTask": [ ]
-    },
-    {
-      "Id": "Prod-WinGet",
-      "Group": "Productivity",
-      "Hidden": true,
-      "Workstation": true,
-      "Jumpstation": true,
-      "Name": "Install/Update WinGet",
-      "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Editor-NotePad++",
