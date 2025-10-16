@@ -464,49 +464,49 @@
           "Arguments": "/c GitGlobal.cmd ${FIRST} ${LAST} {WORK_EMAIL}"
         },
         {
-          "Id": "Git-Gen13",
+          "Id": "Git-GNext",
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
-          "Name": "Gen13 Main branch",
+          "Name": "GNext repository",
           "Command": "cmd.exe",
-          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G13 clone main Gen13/main"
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE} clone GNext"
         },
         {
           "Id": "Git-Gen12",
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
-          "Name": "Gen12 Master branch",
+          "Name": "Gen12 worktree",
           "Command": "cmd.exe",
-          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G12 clone master"
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G12 Gen12/main"
         },
         {
           "Id": "Git-Gen11",
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
-          "Name": "Gen11 Master branch",
+          "Name": "Gen11 worktree",
           "Command": "cmd.exe",
-          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G11 clone master Gen11/master"
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G11 Gen11/main"
         },
         {
           "Id": "Git-Gen10+",
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
-          "Name": "Gen10+ Master branch",
+          "Name": "Gen10+ worktree",
           "Command": "cmd.exe",
-          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G10+ clone master Gen10Plus/master"
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G10+ Gen10Plus/main"
         },
         {
           "Id": "Git-Gen10",
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
-          "Name": "Gen10 Master branch",
+          "Name": "Gen10 Worktree",
           "Command": "cmd.exe",
-          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\G10 clone master Gen10/master"
+          "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G10 Gen10/Main"
         }
       ]
     },

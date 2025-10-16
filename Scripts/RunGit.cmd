@@ -7,9 +7,9 @@ if "%~1"=="" goto Usage
 
 :: Validate command
 if "%~2"=="" goto Usage
-if /I "%~2"=="pull" goto Directory
-if not "%~2"=="clone" goto Usage
-if not "%~3"=="" goto Clone
+if /I "%~2"=="clone" goto Command_Clone
+if /I "%~2"=="worktree" goto Command_Worktree
+if /I "%~2"=="pull" goto Command_Pull
 
 :: Display usage
 :Usage
@@ -20,21 +20,25 @@ echo        command   - git command to execute
 echo        arguments - arguments for git command
 echo.
 echo Command   clone
-echo Arguments repo-to-clone target-directory [branch-to-checkout]]
+echo Arguments repo-to-clone target-directory
+echo.
+echo Command   worktree
+echo Arguments target-directory worktree=branch
 echo.
 echo Command   pull
 echo Arguments --rebase
 echo.
 echo Examples:
-echo   RunGit C:\HPE\Dev\ROMS\G13 clone main G13/main
-echo   RunGit C:\HPE\DEV\ROMS\G12\master pull --rebase
+echo   RunGit C:\HPE\DEV\ROMS clone GNext
+echo   RunGit C:\HPE\DEV\ROMS\GNext worktree ..\G12 Gen12/main
+echo   RunGit C:\HPE\DEV\ROMS\GNext pull --rebase
 echo.
 set CODE=-1
 goto Exit
 
 :: Make sure directory exists
-:Clone
-if exist "%~1" goto Exists
+:Command_Clone
+if exist "%~1" goto Do_Clone
 set MESSAGE=Invalid directory: %~1
 set CODE=1
 echo mkdir "%~1"
@@ -42,7 +46,7 @@ mkdir "%~1"
 if ERRORLEVEL 1 goto Done
 
 :: Execute the clone command
-:Exists
+:Do_Clone
 set MESSAGE=Clone failed!
 set CODE=2
 call "%~d0Patience"
@@ -51,32 +55,42 @@ echo git clone git@github.hpe.com:HPE-ROM-TEAM/GNext.git "%~3"
 git clone git@github.hpe.com:HPE-ROM-TEAM/GNext.git "%~3" 2>&1
 popd
 if ERRORLEVEL 1 goto Done
-
-:: See if checkout is needed
 set CODE=0
-if "%~4"=="" goto Exit
+goto Exit
 
-:: Handle checkout
-set MESSAGE=Checkout failed!
+:: Make sure directory exists
+:Command_Worktree
+if exist "%~1" goto Exist_Worktree
+echo Invalid directory: %~1 1>&2
+goto Usage
+
+:: See if worktree already exists
+:Exist_Worktree
+set MESSAGE=Worktree already exists: %~3!
 set CODE=3
-pushd "%~1\%~3"
-echo git checkout %~4
-git checkout %~4
+if exist "%~3" goto Done
+
+:: Create the worktree
+set MESSAGE=Worktree creation failed!
+set CODE=4
+pushd "%~1"
+echo git worktree add "%~3" "%~4"
+git worktree add "%~3" "%~4" 2>&1
 popd
 if ERRORLEVEL 1 goto Done
 set CODE=0
 goto Exit
 
 :: Make sure the directory exists
-:Directory
-if exist "%~1" goto Pull
-echo %1 is not a valid existing directory 1>&2
+:Command_Pull
+if exist "%~1" goto Do_Pull
+echo Invalid directory: %~1 1>&2
 goto Usage
 
-:: Execute the pull command (in the indecated directory
-:Pull
+:: Execute the pull command (in the indecated directory)
+:Do_Pull
 set MESSAGE=Pull failed!
-set CODE=4
+set CODE=5
 call "%~d0Patience"
 pushd "%~1"
 echo git pull %~3
