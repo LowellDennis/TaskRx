@@ -160,7 +160,7 @@ namespace TaskRx
             txtOutput.Enabled = txtOutput.Visible = isExecuting;
             lblFirst.Visible = txtFirst.Enabled = txtFirst.Visible = !isExecuting;
             lblLast.Visible = txtLast.Enabled = txtLast.Visible = !isExecuting;
-            lblInitials.Visible = txtInitials.Enabled = !isExecuting;
+            lblInitials.Visible = txtInitials.Enabled = txtInitials.Visible = !isExecuting;
             lblDomain.Visible = txtDomain.Enabled = txtDomain.Visible = !isExecuting;
             lblUsername.Visible = txtUsername.Enabled = txtUsername.Visible = !isExecuting;
             lblWork.Visible = txtWork.Enabled = txtWork.Visible = !isExecuting;

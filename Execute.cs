@@ -71,8 +71,18 @@ namespace TaskRx
                             // Loop through any post tasks for selected task
                             foreach (var postTask in specificPostTasks[task.Name])
                             {
-                                // Look for hidden or selected post tasks
-                                if (postTask.Hidden || taskNode.Nodes.Cast<TreeNode>().Any(n => n.Checked))
+                                // Check if this specific post task is hidden or selected
+                                bool shouldIncludePostTask = postTask.Hidden;
+                                
+                                // If not hidden, check if this specific post task is checked
+                                if (!postTask.Hidden)
+                                {
+                                    var correspondingNode = taskNode.Nodes.Cast<TreeNode>()
+                                        .FirstOrDefault(n => ((PostTask)n.Tag).Id == postTask.Id);
+                                    shouldIncludePostTask = correspondingNode?.Checked == true;
+                                }
+                                
+                                if (shouldIncludePostTask)
                                 {
                                     // Add post task to execution task
                                     ExecuteTask post = new ExecuteTask { Id = postTask.Id, Hidden = postTask.Hidden };
