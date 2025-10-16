@@ -212,7 +212,8 @@ namespace TaskRx
             setupTabControl.TabPages.Clear();
 
             // Determine the different task groups
-            var groups = taskList.Tasks.Where(t => !t.Hidden).GroupBy(t => t.Group);
+            // Include ALL tasks (both auto and visible) to ensure hidden tasks appear in UI
+            var groups = taskList.Tasks.GroupBy(t => t.Group);
 
             // Create a tab for each task group
             specificPostTasks = new Dictionary<string, List<PostTask>>();
@@ -223,6 +224,7 @@ namespace TaskRx
                 TreeView setupTreeView = new TreeView();
                 setupTreeView.CheckBoxes = true;
                 setupTreeView.Dock = DockStyle.Fill;
+                setupTreeView.BeforeCheck += TreeView_BeforeCheck;
                 setupTreeView.AfterCheck += TreeView_AfterCheck;
 
                 // Loop through tasks in groups
@@ -233,12 +235,28 @@ namespace TaskRx
                     setupTaskNode.Tag = task;
                     specificPostTasks[task.Name] = task.PostTask;
 
-                    // Loop through post tasks that are not hidden (hidden post tasks are not visible)
-                    foreach (var postTask in task.PostTask.Where(pt => !pt.Hidden))
+                    // Set task appearance based on Auto status
+                    if (task.Auto)
+                    {
+                        setupTaskNode.Checked = true;
+                        setupTaskNode.ForeColor = System.Drawing.Color.Gray;
+                        setupTaskNode.Text = task.Name + " (Auto)";
+                    }
+
+                    // Loop through ALL post tasks (including hidden ones)
+                    foreach (var postTask in task.PostTask)
                     {
                         // Initialize setup post task
                         TreeNode setupPostTaskNode = new TreeNode(postTask.Name);
                         setupPostTaskNode.Tag = postTask;
+
+                        // Set post task appearance based on Auto status
+                        if (postTask.Auto)
+                        {
+                            setupPostTaskNode.Checked = true;
+                            setupPostTaskNode.ForeColor = System.Drawing.Color.Gray;
+                            setupPostTaskNode.Text = postTask.Name + " (Auto)";
+                        }
 
                         // Add setup post task
                         setupTaskNode.Nodes.Add(setupPostTaskNode);

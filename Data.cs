@@ -60,7 +60,7 @@ namespace TaskRx
     public class PostTask
     {
         public string? Id { get; set; }
-        public bool Hidden { get; set; }
+        public bool Auto { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
         public string Name { get; set; } = string.Empty; // Fix: Initialize with a default value
@@ -75,7 +75,7 @@ namespace TaskRx
     {
         public string Id { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
-        public bool Hidden { get; set; }
+        public bool Auto { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -124,7 +124,7 @@ namespace TaskRx
     public class ExecuteTask
     {
         public string? Id { get; set; }
-        public bool Hidden { get; set; }
+        public bool Auto { get; set; }
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ namespace TaskRx
     public class ExecutionTask
     {
         public string Id { get; set; } = string.Empty;
-        public bool Hidden { get; set; }
+        public bool Auto { get; set; }
         public List<ExecuteTask> PostTasks { get; set; } = new List<ExecuteTask>();
     }
 }

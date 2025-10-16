@@ -21,6 +21,22 @@ namespace TaskRx
 
         // The async initialization is now handled in the TaskRx_Load event handler
 
+        private void TreeView_BeforeCheck(object sender, TreeViewCancelEventArgs e)
+        {
+            // Prevent checking/unchecking of auto tasks
+            if (e.Node.Tag is MainTask mainTask && mainTask.Auto)
+            {
+                e.Cancel = true;
+                return;
+            }
+            
+            if (e.Node.Tag is PostTask postTask && postTask.Auto)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
         private void TreeView_AfterCheck(object sender, TreeViewEventArgs e)
         {
             UpdateExecuteButtonState();
@@ -196,8 +212,8 @@ namespace TaskRx
             // Save UserTasks.json
             SaveUserInfo();
 
-            // Add hidden tasks to execution list
-            AddHiddenTasks();
+            // Add auto tasks to execution list
+            AddAutoTasks();
 
             // Add remaining tasks to execution list
             AddCheckedTasks(setupTabControl);
@@ -248,11 +264,19 @@ namespace TaskRx
                     foreach (TreeNode node in treeView.Nodes)
                     {
                         MainTask Task = node.Tag as MainTask;
-                        node.Checked = Task.Workstation;
+                        // Don't modify auto tasks - they stay checked
+                        if (!Task.Auto)
+                        {
+                            node.Checked = Task.Workstation;
+                        }
                         foreach (TreeNode childNode in node.Nodes)
                         {
                             PostTask postTask = childNode.Tag as PostTask;
-                            childNode.Checked = postTask.Workstation;
+                            // Don't modify auto post tasks - they stay checked
+                            if (!postTask.Auto)
+                            {
+                                childNode.Checked = postTask.Workstation;
+                            }
                         }
                     }
                 }
@@ -272,11 +296,19 @@ namespace TaskRx
                     foreach (TreeNode node in treeView.Nodes)
                     {
                         MainTask Task = node.Tag as MainTask;
-                        node.Checked = Task.Jumpstation;
+                        // Don't modify auto tasks - they stay checked
+                        if (!Task.Auto)
+                        {
+                            node.Checked = Task.Jumpstation;
+                        }
                         foreach (TreeNode childNode in node.Nodes)
                         {
                             PostTask postTask = childNode.Tag as PostTask;
-                            childNode.Checked = postTask.Jumpstation;
+                            // Don't modify auto post tasks - they stay checked
+                            if (!postTask.Auto)
+                            {
+                                childNode.Checked = postTask.Jumpstation;
+                            }
                         }
                     }
                 }
@@ -334,6 +366,7 @@ namespace TaskRx
                 {
                     foreach (TreeNode node in treeView.Nodes)
                     {
+                        // Auto tasks are already checked, so this is safe
                         node.Checked = true;
                     }
                 }
@@ -365,6 +398,7 @@ namespace TaskRx
                     {
                         foreach (TreeNode childNode in node.Nodes)
                         {
+                            // Auto post tasks are already checked, so this is safe
                             childNode.Checked = true;
                         }
                     }
@@ -387,10 +421,20 @@ namespace TaskRx
                 {
                     foreach (TreeNode node in treeView.Nodes)
                     {
-                        node.Checked = false;
+                        MainTask mainTask = node.Tag as MainTask;
+                        // Don't uncheck auto tasks - they stay checked
+                        if (!mainTask.Auto)
+                        {
+                            node.Checked = false;
+                        }
                         foreach (TreeNode childNode in node.Nodes)
                         {
-                            childNode.Checked = false;
+                            PostTask postTask = childNode.Tag as PostTask;
+                            // Don't uncheck auto post tasks - they stay checked
+                            if (!postTask.Auto)
+                            {
+                                childNode.Checked = false;
+                            }
                         }
                     }
                 }
@@ -411,7 +455,12 @@ namespace TaskRx
                 {
                     foreach (TreeNode node in treeView.Nodes)
                     {
-                        node.Checked = false;
+                        MainTask mainTask = node.Tag as MainTask;
+                        // Don't uncheck auto tasks - they stay checked
+                        if (!mainTask.Auto)
+                        {
+                            node.Checked = false;
+                        }
                     }
                 }
             }
@@ -434,7 +483,12 @@ namespace TaskRx
                     {
                         foreach (TreeNode childNode in node.Nodes)
                         {
-                            childNode.Checked = false;
+                            PostTask postTask = childNode.Tag as PostTask;
+                            // Don't uncheck auto post tasks - they stay checked
+                            if (!postTask.Auto)
+                            {
+                                childNode.Checked = false;
+                            }
                         }
                     }
                 }

@@ -9,30 +9,30 @@ namespace TaskRx
     public partial class TaskRx : Form
     {
         /// <summary>
-        /// Add all hidden tasks tasks to the executuion list
+        /// Add all auto tasks tasks to the executuion list
         /// Note: Only takes place in setup mode
         /// </summary>
-        private void AddHiddenTasks()
+        private void AddAutoTasks()
         {
-            // Hidden tasks are only added in setup mode
+            // Auto tasks are only added in setup mode
             if (!isUpdateMode)
             {
                 // Loop through all possible tasks
                 foreach (var task in taskList.Tasks)
                 {
-                    // Look for hidden tasks
-                    if (task.Hidden == true)
+                    // Look for auto tasks
+                    if (task.Auto == true)
                     {
                         // Initialize info for this execution task
-                        var taskItem = new ExecutionTask { Id = task.Id, Hidden = true, PostTasks = new List<ExecuteTask>() };
+                        var taskItem = new ExecutionTask { Id = task.Id, Auto = true, PostTasks = new List<ExecuteTask>() };
 
-                        // Look for hidden post tasks
+                        // Look for auto post tasks
                         foreach (var postTask in task.PostTask)
                         {
-                            if (postTask.Hidden)
+                            if (postTask.Auto)
                             {
                                 // Add post task to execution task
-                                ExecuteTask post = new ExecuteTask { Id = postTask.Id, Hidden = true };
+                                ExecuteTask post = new ExecuteTask { Id = postTask.Id, Auto = true };
                                 executionSteps++;
                                 taskItem.PostTasks.Add(post);
                             }
@@ -66,16 +66,16 @@ namespace TaskRx
                         {
                             // Get task info
                             var task = (MainTask)taskNode.Tag;
-                            var taskItem = new ExecutionTask { Id = task.Id, Hidden = false, PostTasks = new List<ExecuteTask>() };
+                            var taskItem = new ExecutionTask { Id = task.Id, Auto = false, PostTasks = new List<ExecuteTask>() };
 
                             // Loop through any post tasks for selected task
                             foreach (var postTask in specificPostTasks[task.Name])
                             {
-                                // Check if this specific post task is hidden or selected
-                                bool shouldIncludePostTask = postTask.Hidden;
+                                // Check if this specific post task is auto or selected
+                                bool shouldIncludePostTask = postTask.Auto;
                                 
-                                // If not hidden, check if this specific post task is checked
-                                if (!postTask.Hidden)
+                                // If not auto, check if this specific post task is checked
+                                if (!postTask.Auto)
                                 {
                                     var correspondingNode = taskNode.Nodes.Cast<TreeNode>()
                                         .FirstOrDefault(n => ((PostTask)n.Tag).Id == postTask.Id);
@@ -85,7 +85,7 @@ namespace TaskRx
                                 if (shouldIncludePostTask)
                                 {
                                     // Add post task to execution task
-                                    ExecuteTask post = new ExecuteTask { Id = postTask.Id, Hidden = postTask.Hidden };
+                                    ExecuteTask post = new ExecuteTask { Id = postTask.Id, Auto = postTask.Auto };
                                     executionSteps++;
                                     taskItem.PostTasks.Add(post);
                                 }
@@ -138,7 +138,7 @@ namespace TaskRx
         {
             // Get all tasks from executionTasks that are not hidden
             string userTasksFilePath = PathConfig.GetUserFilePath("UserTasks.json");
-            var tempTasks = executionTasks.Where(t => !t.Hidden);
+            var tempTasks = executionTasks.Where(t => !t.Auto);
 
             // Move the items to user tasks
             userTasks = new List<UserTask>();
@@ -150,7 +150,7 @@ namespace TaskRx
                 // Add any post task that are not hidden
                 foreach (ExecuteTask postTask in task.PostTasks)
                 {
-                    if (!postTask.Hidden)
+                    if (!postTask.Auto)
                     {
                         user.PostTasks.Add(postTask.Id);
                     }
