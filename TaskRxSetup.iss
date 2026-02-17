@@ -17,7 +17,7 @@ AllowNoIcons=yes
 OutputDir=Release
 OutputBaseFilename=TaskRxSetup{#MyAppVersion}
 Compression=lzma
-SolidCompression=yes
+SolidCompression=no
 WizardStyle=modern
 
 [Languages]
