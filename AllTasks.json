@@ -1,25 +1,39 @@
 {
   "Tasks": [
     {
+      "Id": "Sys-WinGet",
+      "Group": "System",
+      "Auto": true,
+      "Workstation": true,
+      "Jumpstation": true,
+      "DevelopmentVM": true,
+      "Name": "Install/Update WinGet",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
+      "PostTask": [ ]
+    },
+    {
       "Id": "Sys-LongPaths",
       "Group": "System",
       "Auto": true,
       "Workstation": true,
-      "Jumpstation": false,
+    "Jumpstation": false,
+      "DevelopmentVM": true,
       "Name": "Enable Long Paths",
       "Command": "powershell.exe",
       "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\"",
       "PostTask": [ ]
     },
     {
-      "Id": "Sys-WinGet",
+      "Id": "Sys-CmdExe",
       "Group": "System",
-      "Auto": true,
+      "Auto": false,
       "Workstation": true,
-      "Jumpstation": true,
-      "Name": "Install/Update WinGet",
+      "Jumpstation": false,
+      "DevelopmentVM": false,
+      "Name": "Make Cmd.Exe Default Shell",
       "Command": "powershell.exe",
-      "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
+      "Arguments": "Set-ItemProperty -Path \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" -Name Shell -Value \"cmd.exe\"",
       "PostTask": [ ]
     },
     {
@@ -28,6 +42,7 @@
       "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Unpin Microsoft Store from Taskbar",
       "Command": "powershell.exe",
       "Arguments": " -File \".\\UnPinStore.ps1\"",
@@ -39,9 +54,22 @@
       "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Enable Ultimate Performace",
       "Command": "powershell.exe",
       "Arguments": " -File \".\\UltimatePerformance.ps1\"",
+      "PostTask": [ ]
+    },
+    {
+      "Id": "Sys-OptimizeVM",
+      "Group": "System",
+      "Auto": false,
+      "Workstation": false,
+      "Jumpstation": false,
+      "DevelopmentVM": true,
+      "Name": "Optimize Development VM",
+      "Command": "powershell.exe",
+      "Arguments": "-ExecutionPolicy Bypass -File \"Optimize-DevVM.ps1\"",
       "PostTask": [ ]
     },
     {
@@ -50,6 +78,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Microsoft Office",
       "Command": "powershell.exe",
       "Arguments": "-ExecutionPolicy Bypass -File \"InstallOffice.ps1\" -domain \"${DOMAIN}\" -username \"${USERNAME}\" -email \"${WORK_EMAIL}\" -initials \"${INITIALS}\"",
@@ -59,6 +88,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Outlook to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\WindowsApps\\Microsoft.OutlookForWindows_1.2025.506.300_x64__8wekyb3d8bbwe\\olk.exe\""
@@ -68,6 +98,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Teams to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\WindowsApps\\MSTeams_25072.1611.3570.1995_x64__8wekyb3d8bbwe\\ms-teams.exe\""
@@ -80,6 +111,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Slack",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install SlackTechnologies.Slack",
@@ -89,6 +121,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Slack to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\slack\\slack.exe\""
@@ -101,6 +134,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "Notepad++",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Notepad++.Notepad++",
@@ -110,6 +144,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Pin Notepad++ to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Notepad++\\notepad++.exe\""
@@ -122,6 +157,7 @@
       "Hidden": false,
       "Workstation": false,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "SlickEdit Pro 2017",
       "Command": "cmd.exe",
       "Arguments": "/c InstallSlickEdit.cmd",
@@ -131,6 +167,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin SlickEdit to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\SlickEdit Pro 22.0.2\\win\\vs.exe\""
@@ -143,6 +180,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "Visual Studio Code",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Microsoft.VisualStudioCode",
@@ -152,6 +190,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Pin SlickEdit to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\""
@@ -161,6 +200,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "C/C++ Extensions",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension ms-vscode.cpptools ms-vscode.cpptools-extension-pack ms-vscode.cpptools-themes"
@@ -170,6 +210,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "CMake Extensions",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension twxs.cmake josetr.cmake-language-support-vscode ms-vscode.cmake-tools"
@@ -179,6 +220,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "DoxyGen Extension",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension cschlosser.doxdocgen"
@@ -188,6 +230,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "EDK2Code Extension",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension intel-corporation.edk2code"
@@ -197,6 +240,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "GitLens Extension",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension eamodio.gitlens"
@@ -206,6 +250,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Local History Extension",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension xyz.local-history"
@@ -215,6 +260,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Python Extensions",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension ms-python.python ms-python.vscode-pylance ms-python.debugpy"
@@ -224,6 +270,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Remote SSH Extensions",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension ms-vscode-remote.remote-ssh ms-vscode-remote.remote-ssh-edit ms-vscode.remote-explorer"
@@ -236,6 +283,7 @@
       "Hidden": false,
       "Workstation": false,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Visual Studio Community",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Microsoft.VisualStudio.2022.Community",
@@ -245,6 +293,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Visual Studio Community to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\devenv.exe\""
@@ -257,6 +306,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "Work SSH Key",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHKey.cmd Work ${WORK_EMAIL}",
@@ -268,6 +318,7 @@
       "Hidden": false,
       "Workstation": false,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Personal SSH Key",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHKey.cmd Personal ${PERSONAL_EMAIL}",
@@ -279,6 +330,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "SSH Config File",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHConfig.cmd ${WORK_EMAIL} ${PERSONAL_EMAIL}",
@@ -290,6 +342,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "OpenSSH",
       "Command": "powershell.exe",
       "Arguments": "-WindowStyle Minimized -Command \"Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0\"",
@@ -299,6 +352,7 @@
           "Hidden": true,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Install OpenSSH Client",
           "Command": "powershell.exe",
           "Arguments": "-WindowStyle Minimized -Command \"Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0\""
@@ -308,6 +362,7 @@
           "Hidden": true,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Start OpenSSH Service",
           "Command": "powershell.exe",
           "Arguments": "-WindowStyle Minimized -Command \"Start-Service sshd\""
@@ -317,6 +372,7 @@
           "Hidden": true,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Set OpenSSH to Start Automatically on Startup",
           "Command": "powershell.exe",
           "Arguments": "-WindowStyle Minimized -Command \"Set-Service -Name sshd -StartupType Automatic\""
@@ -329,6 +385,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "010 Binary Editor",
       "Command": "cmd.exe",
       "Arguments": "/c Install010.cmd",
@@ -338,6 +395,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin 010 Binary Editor to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files (x86)\\010 Editor v3\\010Editor.exe\""
@@ -350,6 +408,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation ": true,
+      "DevelopmentVM": true,
       "Name": "Beyond Compare",
       "Command": "cmd.exe",
       "Arguments": "/c InstallBeyondCompare.cmd",
@@ -359,6 +418,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Beyond Compare to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\Beyond Compare 4\\BCompare.exe\""
@@ -368,6 +428,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Configure Git/TortoiseGit to use Beyond Compare",
           "Command": "cmd.exe",
           "Arguments": "/C \"GitUseBC4.cmd\""
@@ -380,6 +441,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "PuTTY",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install PuTTY.PuTTY",
@@ -389,6 +451,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": false,
           "Name": "Pin PuTTY to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files\\PuTTY\\putty.exe\""
@@ -398,6 +461,7 @@
           "Hidden": true,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Work PPK File",
           "Command": "cmd.exe",
           "Arguments": "/c CreatePPKFile.cmd Work"
@@ -407,6 +471,7 @@
           "Hidden": true,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Personal PPK File",
           "Command": "cmd.exe",
           "Arguments": "/c CreatePPKFile.cmd Personal"
@@ -419,6 +484,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "Remote Desktop Connection Manager",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Microsoft.Sysinternals.RDCMan",
@@ -428,6 +494,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin Remote Desktop Connection Manager to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"%USERPROFILE%\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Microsoft.Sysinternals.RDCMan_Microsoft.Winget.Source_8wekyb3d8bbwe\\RCDMan.exe\""
@@ -440,6 +507,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "WinSCP",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install WinSCP.Win.SCP",
@@ -449,6 +517,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Pin WinSCP to Taskbar",
           "Command": "cmd.exe",
           "Arguments": "/C PinIt.cmd \"C:\\Program Files (x86)\\WinSCP\\WinSCP.exe\""
@@ -461,6 +530,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "Git",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install Git.Git",
@@ -470,6 +540,7 @@
           "Hidden": true,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Configure Git",
           "Command": "cmd.exe",
           "Arguments": "/c GitGlobal.cmd ${FIRST} ${LAST} {WORK_EMAIL}"
@@ -479,6 +550,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "GNext repository",
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE} clone GNext"
@@ -488,6 +560,7 @@
           "Hidden": false,
           "Workstation": true,
           "Jumpstation": true,
+          "DevelopmentVM": true,
           "Name": "Gen12 worktree",
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G12 Gen12/main"
@@ -497,6 +570,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Gen11 worktree",
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G11 Gen11/main"
@@ -506,6 +580,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Gen10+ worktree",
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G10+ Gen10Plus/main"
@@ -515,6 +590,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Gen10 Worktree",
           "Command": "cmd.exe",
           "Arguments": "/c RunGit.cmd ${REPOS_BASE}\\GNext worktree ..\\G10 Gen10/Main"
@@ -527,6 +603,7 @@
       "Hidden": false,
       "Workstation": true,
       "Jumpstation": true,
+      "DevelopmentVM": true,
       "Name": "TortoiseGit",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install TortoiseGit.TortoiseGit",
@@ -538,6 +615,7 @@
       "Hidden": false,
       "Workstation": false,
       "Jumpstation": false,
+      "DevelopmentVM": false,
       "Name": "TortoiseSVN",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install TortoiseSVN.TortoiseSVN",
@@ -547,6 +625,7 @@
           "Hidden": false,
           "Workstation": false,
           "Jumpstation": false,
+          "DevelopmentVM": false,
           "Name": "Gen9 Trunk",
           "Command": "cmd.exe",
           "Arguments": "/c RunSvn.cmd ${REPOS_BASE}\\G9 G9 checkout trunk"
@@ -557,6 +636,7 @@
           "Workstation": false,
           "Workstationtion": false,
           "Jumpstationtion": false,
+          "DevelopmentVM": false,
           "Name": "Gen8 Trunk",
           "Command": "cmd.exe",
           "Arguments": "/c RunSvn.cmd ${REPOS_BASE}\\G8 G8 checkout trunk"

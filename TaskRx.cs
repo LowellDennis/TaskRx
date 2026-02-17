@@ -316,6 +316,38 @@ namespace TaskRx
         }
 
         /// <summary>
+        /// Check defaults for DevelopmentVM checkboxes
+        /// </summary>
+        private void checkDefaultDevelopmentVM_ButtonClick(object sender, EventArgs e)
+        {
+            // Process all nodes in tree view for tab control
+            foreach (TabPage tabPage in setupTabControl.TabPages)
+            {
+                foreach (TreeView treeView in tabPage.Controls.OfType<TreeView>())
+                {
+                    foreach (TreeNode node in treeView.Nodes)
+                    {
+                        MainTask? Task = node.Tag as MainTask;
+                        // Don't modify auto tasks - they stay checked
+                        if (Task != null && !Task.Auto)
+                        {
+                            node.Checked = Task.DevelopmentVM;
+                        }
+                        foreach (TreeNode childNode in node.Nodes)
+                        {
+                            PostTask? postTask = childNode.Tag as PostTask;
+                            // Don't modify auto post tasks - they stay checked
+                            if (postTask != null && !postTask.Auto)
+                            {
+                                childNode.Checked = postTask.DevelopmentVM;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Check all checkboxes
         /// </summary>
         private void checkAllMenuItem_ButtonClick(object sender, EventArgs e)

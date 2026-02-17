@@ -42,6 +42,7 @@
             checkAllSplitButton = new ToolStrip();
             checkWorkstationButton = new ToolStripSplitButton();
             checkAllTasksMenuItem = new ToolStripMenuItem();
+            checkDevelopmentVMMenuItem = new ToolStripMenuItem();
             checkAllPostTasksMenuItem = new ToolStripMenuItem();
             checkAllPostTasksToolStripMenuItem = new ToolStripMenuItem();
             checkAllPostTasksToolStripMenuItem1 = new ToolStripMenuItem();
@@ -272,7 +273,7 @@
             // checkWorkstationButton
             // 
             checkWorkstationButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            checkWorkstationButton.DropDownItems.AddRange(new ToolStripItem[] { checkAllTasksMenuItem, checkAllPostTasksMenuItem, checkAllPostTasksToolStripMenuItem, checkAllPostTasksToolStripMenuItem1 });
+            checkWorkstationButton.DropDownItems.AddRange(new ToolStripItem[] { checkAllTasksMenuItem, checkDevelopmentVMMenuItem, checkAllPostTasksMenuItem, checkAllPostTasksToolStripMenuItem, checkAllPostTasksToolStripMenuItem1 });
             checkWorkstationButton.ImageTransparentColor = Color.Magenta;
             checkWorkstationButton.Name = "checkWorkstationButton";
             checkWorkstationButton.Size = new Size(166, 24);
@@ -286,6 +287,13 @@
             checkAllTasksMenuItem.Size = new Size(231, 26);
             checkAllTasksMenuItem.Text = "Jumpstation Defaults";
             checkAllTasksMenuItem.Click += checkDefaultJumpstation_ButtonClick;
+            // 
+            // checkDevelopmentVMMenuItem
+            // 
+            checkDevelopmentVMMenuItem.Name = "checkDevelopmentVMMenuItem";
+            checkDevelopmentVMMenuItem.Size = new Size(231, 26);
+            checkDevelopmentVMMenuItem.Text = "DevelopmentVM Defaults";
+            checkDevelopmentVMMenuItem.Click += checkDefaultDevelopmentVM_ButtonClick;
             // 
             // checkAllPostTasksMenuItem
             // 
@@ -420,6 +428,7 @@
         private Label lblInitials;
         private ToolStripSplitButton checkWorkstationButton;
         private ToolStripMenuItem checkAllTasksMenuItem;
+        private ToolStripMenuItem checkDevelopmentVMMenuItem;
         private ToolStripMenuItem checkAllPostTasksMenuItem;
         private ToolStripMenuItem checkAllPostTasksToolStripMenuItem;
         private ToolStripMenuItem checkAllPostTasksToolStripMenuItem1;

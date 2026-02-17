@@ -29,6 +29,34 @@ namespace TaskRx.Utilities
             var stdOut = new StringBuilder();
             var stdErr = new StringBuilder();
 
+            void AppendWithCarriageReturn(StringBuilder sb, string data)
+            {
+                if (data != null)
+                {
+                    if (data.Contains('\r'))
+                    {
+                        // Handle carriage return by replacing the last line
+                        string current = sb.ToString();
+                        int lastNewLine = current.LastIndexOf('\n');
+                        if (lastNewLine >= 0)
+                        {
+                            sb.Length = lastNewLine + 1; // Keep up to and including the last \n
+                            sb.Append(data.Substring(data.LastIndexOf('\r') + 1));
+                        }
+                        else
+                        {
+                            sb.Clear();
+                            sb.Append(data.Substring(data.LastIndexOf('\r') + 1));
+                        }
+                        sb.AppendLine();
+                    }
+                    else
+                    {
+                        sb.AppendLine(data);
+                    }
+                }
+            }
+
             // For PowerShell commands, add a WindowStyle parameter to minimize the window
             string effectiveArguments = arguments;
             if (command.EndsWith("powershell.exe", StringComparison.OrdinalIgnoreCase) ||
@@ -69,8 +97,8 @@ namespace TaskRx.Utilities
 
             using var process = new Process { StartInfo = processStartInfo };
 
-            process.OutputDataReceived += (sender, args) => { if (args.Data != null) stdOut.AppendLine(args.Data); };
-            process.ErrorDataReceived += (sender, args) => { if (args.Data != null) stdErr.AppendLine(args.Data); };
+            process.OutputDataReceived += (sender, args) => AppendWithCarriageReturn(stdOut, args.Data);
+            process.ErrorDataReceived += (sender, args) => AppendWithCarriageReturn(stdErr, args.Data);
 
             process.Start();
             process.BeginOutputReadLine();

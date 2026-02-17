@@ -63,6 +63,7 @@ namespace TaskRx
         public bool Auto { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
+        public bool DevelopmentVM { get; set; }
         public string Name { get; set; } = string.Empty; // Fix: Initialize with a default value
         public string Command { get; set; } = string.Empty; // Fix: Initialize with a default value
         public string Arguments { get; set; } = string.Empty; // Fix: Initialize with a default value
@@ -78,6 +79,7 @@ namespace TaskRx
         public bool Auto { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
+        public bool DevelopmentVM { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Command { get; set; } = string.Empty;
         public string Arguments { get; set; } = string.Empty;
