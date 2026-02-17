@@ -274,6 +274,16 @@
           "Name": "Remote SSH Extensions",
           "Command": "cmd.exe",
           "Arguments": "/C RunVSCode.cmd --install-extension ms-vscode-remote.remote-ssh ms-vscode-remote.remote-ssh-edit ms-vscode.remote-explorer"
+        },
+        {
+          "Id": "VSCode-HPE-Copilot",
+          "Hidden": false,
+          "Workstation": true,
+          "Jumpstation": true,
+          "DevelopmentVM": true,
+          "Name": "HPE Copilot Prompts Extension",
+          "Command": "powershell.exe",
+          "Arguments": "-Command \"Invoke-WebRequest -Uri 'https://github.hpe.com/firmware/hpe-copilot-prompts/releases/latest/download/hpe-copilot-prompts.vsix' -OutFile 'hpe-copilot.vsix'; & '.\\RunVSCode.cmd' --install-extension 'hpe-copilot.vsix'\""
         }
       ]
     },
