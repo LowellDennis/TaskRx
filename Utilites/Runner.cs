@@ -57,29 +57,26 @@ namespace TaskRx.Utilities
                 }
             }
 
-            // For PowerShell commands, add a WindowStyle parameter to minimize the window
+            // For PowerShell commands, add -Command and WindowStyle
             string effectiveArguments = arguments;
             if (command.EndsWith("powershell.exe", StringComparison.OrdinalIgnoreCase) ||
                 command.Equals("powershell", StringComparison.OrdinalIgnoreCase))
             {
+                // Add -Command if not present
+                if (!arguments.StartsWith("-Command", StringComparison.OrdinalIgnoreCase))
+                {
+                    effectiveArguments = "-Command " + arguments;
+                }
+
                 // Check if arguments already contain -WindowStyle
-                if (!arguments.Contains("-WindowStyle"))
+                if (!effectiveArguments.Contains("-WindowStyle"))
                 {
                     // Add WindowStyle Minimized parameter
-                    if (arguments.StartsWith("-Command", StringComparison.OrdinalIgnoreCase))
-                    {
-                        // Insert WindowStyle before the Command parameter
-                        effectiveArguments = "-WindowStyle Minimized " + arguments;
-                    }
-                    else
-                    {
-                        // Add WindowStyle parameter
-                        effectiveArguments = "-WindowStyle Minimized " + arguments;
-                    }
-
-                    // Log the modified command for debugging
-                    Debug.WriteLine($"Modified PowerShell command: {command} {effectiveArguments}");
+                    effectiveArguments = "-WindowStyle Minimized " + effectiveArguments;
                 }
+
+                // Log the modified command for debugging
+                Debug.WriteLine($"Modified PowerShell command: {command} {effectiveArguments}");
             }
 
             var processStartInfo = new ProcessStartInfo

@@ -30,7 +30,7 @@ call "%~dp0Patience.cmd"
 set CUSTOM=
 if not "%~3"=="" set CUSTOM=-custom "%~3"
 echo winget %~1 %~2 --source winget --silent --accept-source-agreements --accept-package-agreements --disable-interactivity %CUSTOM%
-winget %~1 %~2 --source winget --silent --accept-source-agreements --accept-package-agreements --disable-interactivity %CUSTOM% > NUL
+winget %~1 %~2 --source winget --silent --accept-source-agreements --accept-package-agreements --disable-interactivity %CUSTOM%
 set CODE=%ERRORLEVEL%
 
 :: Co-opt Winget's no update available exit code
