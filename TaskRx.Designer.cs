@@ -385,7 +385,7 @@
             Controls.Add(txtOutput);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "TaskRx";
-            Text = "TaskRx V1.2";
+            Text = "TaskRx V1.3";
             Load += TaskRx_Load;
             executionStrip.ResumeLayout(false);
             executionStrip.PerformLayout();

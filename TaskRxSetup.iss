@@ -1,5 +1,5 @@
 #define MyAppName "TaskRx"
-#define MyAppVersion "1.2"
+#define MyAppVersion "1.3"
 #define MyAppPublisher "HPE
 #define MyAppExeName "TaskRx.exe"
 

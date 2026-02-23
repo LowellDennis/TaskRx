@@ -415,8 +415,33 @@ namespace TaskRx
             }
         }
 
+        // Tracks whether the last line written to the output was a progress line
+        private bool lastLineWasProgress = false;
+
         /// <summary>
-        /// Updates the output text box with the given text and logs it to the log file
+        /// Detects whether a line is a transient progress update (e.g. percentages,
+        /// spinners, counters) that should replace the previous line instead of
+        /// appending a new one.
+        /// </summary>
+        private static bool IsProgressLine(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return false;
+
+            // Percentage patterns: "45%", "(12/30)", "Receiving objects: 10%"
+            if (System.Text.RegularExpressions.Regex.IsMatch(text, @"\d+%"))
+                return true;
+
+            // Counter patterns like "(12/30)" commonly used by git
+            if (System.Text.RegularExpressions.Regex.IsMatch(text, @"\(\d+/\d+\)"))
+                return true;
+
+            return false;
+        }
+
+        /// <summary>
+        /// Updates the output text box with the given text and logs it to the log file.
+        /// Progress lines (percentages, counters) replace the previous line instead of
+        /// appending, which prevents the output from scrolling excessively.
         /// </summary>
         /// <param name="text">The text to append to the output text box</param>
         /// <param name="isError">Whether the text is an error message (to be displayed in red)</param>
@@ -426,66 +451,23 @@ namespace TaskRx
             {
                 if (string.IsNullOrEmpty(text)) return;
 
-                // Log the output to the log file with error status
-                Log(text, isError);
+                bool isProgress = IsProgressLine(text);
+
+                // Always log to the log file, but skip duplicate progress lines
+                // to keep log files clean as well
+                if (!isProgress)
+                {
+                    Log(text, isError);
+                }
 
                 // Update the output text box on the UI thread
                 if (this.InvokeRequired)
                 {
-                    this.Invoke(new Action(() =>
-                    {
-                        // Store the current selection position
-                        int currentPosition = txtOutput.TextLength;
-
-                        // Append the text
-                        txtOutput.AppendText(text + Environment.NewLine);
-
-                        // Apply color formatting if it's an error
-                        if (isError)
-                        {
-                            // Select the text we just added
-                            txtOutput.SelectionStart = currentPosition;
-                            txtOutput.SelectionLength = text.Length;
-
-                            // Set the color to red for error messages
-                            txtOutput.SelectionColor = Color.Red;
-
-                            // Reset selection
-                            txtOutput.SelectionStart = txtOutput.TextLength;
-                            txtOutput.SelectionLength = 0;
-                        }
-
-                        // Scroll to the end
-                        txtOutput.SelectionStart = txtOutput.TextLength;
-                        txtOutput.ScrollToCaret();
-                    }));
+                    this.Invoke(new Action(() => AppendOrReplaceOutput(text, isError, isProgress)));
                 }
                 else
                 {
-                    // Store the current selection position
-                    int currentPosition = txtOutput.TextLength;
-
-                    // Append the text
-                    txtOutput.AppendText(text + Environment.NewLine);
-
-                    // Apply color formatting if it's an error
-                    if (isError)
-                    {
-                        // Select the text we just added
-                        txtOutput.SelectionStart = currentPosition;
-                        txtOutput.SelectionLength = text.Length;
-
-                        // Set the color to red for error messages
-                        txtOutput.SelectionColor = Color.Red;
-
-                        // Reset selection
-                        txtOutput.SelectionStart = txtOutput.TextLength;
-                        txtOutput.SelectionLength = 0;
-                    }
-
-                    // Scroll to the end
-                    txtOutput.SelectionStart = txtOutput.TextLength;
-                    txtOutput.ScrollToCaret();
+                    AppendOrReplaceOutput(text, isError, isProgress);
                 }
             }
             catch (Exception ex)
@@ -493,6 +475,57 @@ namespace TaskRx
                 // If we can't update the text box, at least log the error
                 Debug.WriteLine($"Error updating output text box: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Helper that either appends a new line or replaces the last line in the
+        /// output RichTextBox depending on whether the text is a progress update.
+        /// </summary>
+        private void AppendOrReplaceOutput(string text, bool isError, bool isProgress)
+        {
+            if (isProgress && lastLineWasProgress)
+            {
+                // Replace the last line with the updated progress text
+                string currentText = txtOutput.Text;
+                int lastNewLine = currentText.LastIndexOf('\n');
+                if (lastNewLine >= 0)
+                {
+                    // Find the second-to-last newline to locate the start of the last line
+                    int prevNewLine = currentText.LastIndexOf('\n', lastNewLine - 1);
+                    int startOfLastLine = (prevNewLine >= 0) ? prevNewLine + 1 : 0;
+
+                    txtOutput.SelectionStart = startOfLastLine;
+                    txtOutput.SelectionLength = currentText.Length - startOfLastLine;
+                    txtOutput.SelectedText = text + Environment.NewLine;
+                }
+                else
+                {
+                    // Only one line exists – replace everything
+                    txtOutput.Text = text + Environment.NewLine;
+                }
+            }
+            else
+            {
+                // Normal append
+                int currentPosition = txtOutput.TextLength;
+                txtOutput.AppendText(text + Environment.NewLine);
+
+                // Apply color formatting if it's an error
+                if (isError)
+                {
+                    txtOutput.SelectionStart = currentPosition;
+                    txtOutput.SelectionLength = text.Length;
+                    txtOutput.SelectionColor = Color.Red;
+                    txtOutput.SelectionStart = txtOutput.TextLength;
+                    txtOutput.SelectionLength = 0;
+                }
+            }
+
+            lastLineWasProgress = isProgress;
+
+            // Scroll to the end
+            txtOutput.SelectionStart = txtOutput.TextLength;
+            txtOutput.ScrollToCaret();
         }
 
         /// <summary>
