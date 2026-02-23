@@ -283,7 +283,7 @@
           "DevelopmentVM": true,
           "Name": "HPE Copilot Prompts Extension",
           "Command": "powershell.exe",
-          "Arguments": "-Command \"try { Invoke-WebRequest -Uri 'https://github.hpe.com/firmware/hpe-copilot-prompts/releases/latest/download/hpe-copilot-prompts.vsix' -OutFile 'hpe-copilot.vsix' -Headers @{Authorization = 'token ' + $(Read-Host 'Enter HPE GitHub personal access token (or press Enter to skip)')}; if (Test-Path 'hpe-copilot.vsix') { & '.\\RunVSCode.cmd' --install-extension 'hpe-copilot.vsix' } } catch { Write-Host 'HPE Copilot extension download failed. Please install manually from HPE GitHub.' }\""
+          "Arguments": "-ExecutionPolicy Bypass -File \"InstallHPECopilotPrompts.ps1\""
         }
       ]
     },
