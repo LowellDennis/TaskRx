@@ -67,6 +67,7 @@
             // 
             // executeButton
             // 
+            executeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             executeButton.Location = new Point(12, 692);
             executeButton.Name = "executeButton";
             executeButton.Size = new Size(100, 30);
@@ -76,6 +77,7 @@
             // 
             // executionProgress
             // 
+            executionProgress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             executionProgress.Location = new Point(118, 692);
             executionProgress.Name = "executionProgress";
             executionProgress.Size = new Size(726, 29);
@@ -166,6 +168,7 @@
             // 
             // txtOutput
             // 
+            txtOutput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtOutput.DetectUrls = false;
             txtOutput.Location = new Point(12, 7);
             txtOutput.Name = "txtOutput";
@@ -384,8 +387,9 @@
             Controls.Add(uncheckAllSplitButton);
             Controls.Add(txtOutput);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(872, 520);
             Name = "TaskRx";
-            Text = "TaskRx V1.3";
+            Text = "TaskRx V1.4";
             Load += TaskRx_Load;
             executionStrip.ResumeLayout(false);
             executionStrip.PerformLayout();
