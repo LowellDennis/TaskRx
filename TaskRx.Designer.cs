@@ -80,7 +80,7 @@
             executionProgress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             executionProgress.Location = new Point(118, 692);
             executionProgress.Name = "executionProgress";
-            executionProgress.Size = new Size(726, 29);
+            executionProgress.Size = new Size(641, 29);
             executionProgress.TabIndex = 21;
             // 
             // executionStrip
@@ -184,7 +184,7 @@
             // 
             txtBase.Location = new Point(436, 81);
             txtBase.Name = "txtBase";
-            txtBase.Size = new Size(325, 27);
+            txtBase.Size = new Size(295, 27);
             txtBase.TabIndex = 15;
             txtBase.TextChanged += txtBase_TextChanged;
             // 
@@ -199,11 +199,11 @@
             // 
             // btnBase
             // 
-            btnBase.Location = new Point(767, 79);
+            btnBase.Location = new Point(731, 79);
             btnBase.Name = "btnBase";
-            btnBase.Size = new Size(77, 30);
+            btnBase.Size = new Size(30, 30);
             btnBase.TabIndex = 16;
-            btnBase.Text = "Browse";
+            btnBase.Text = "...";
             btnBase.Click += btnBase_Click;
             // 
             // lblWork
@@ -253,7 +253,7 @@
             uncheckAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
             uncheckAllSplitButton.ImageScalingSize = new Size(20, 20);
             uncheckAllSplitButton.Items.AddRange(new ToolStripItem[] { uncheckAllButton });
-            uncheckAllSplitButton.Location = new Point(693, 142);
+            uncheckAllSplitButton.Location = new Point(653, 142);
             uncheckAllSplitButton.Name = "uncheckAllSplitButton";
             uncheckAllSplitButton.RenderMode = ToolStripRenderMode.System;
             uncheckAllSplitButton.Size = new Size(108, 27);
@@ -266,7 +266,7 @@
             checkAllSplitButton.GripStyle = ToolStripGripStyle.Hidden;
             checkAllSplitButton.ImageScalingSize = new Size(20, 20);
             checkAllSplitButton.Items.AddRange(new ToolStripItem[] { checkWorkstationButton, toolStripButton1 });
-            checkAllSplitButton.Location = new Point(435, 142);
+            checkAllSplitButton.Location = new Point(395, 142);
             checkAllSplitButton.Name = "checkAllSplitButton";
             checkAllSplitButton.RenderMode = ToolStripRenderMode.System;
             checkAllSplitButton.Size = new Size(198, 27);
@@ -361,7 +361,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(856, 747);
+            ClientSize = new Size(771, 747);
             Controls.Add(txtInitials);
             Controls.Add(lblInitials);
             Controls.Add(txtUsername);
@@ -387,7 +387,7 @@
             Controls.Add(uncheckAllSplitButton);
             Controls.Add(txtOutput);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimumSize = new Size(872, 520);
+            MinimumSize = new Size(787, 520);
             Name = "TaskRx";
             Text = "TaskRx V1.4";
             Load += TaskRx_Load;
