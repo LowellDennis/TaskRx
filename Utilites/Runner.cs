@@ -29,9 +29,9 @@ namespace TaskRx.Utilities
             var stdOut = new StringBuilder();
             var stdErr = new StringBuilder();
 
-            void AppendWithCarriageReturn(StringBuilder sb, string data)
+            void AppendWithCarriageReturn(StringBuilder sb, string? data)
             {
-                if (data != null)
+                if (!string.IsNullOrEmpty(data))
                 {
                     if (data.Contains('\r'))
                     {
