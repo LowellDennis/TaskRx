@@ -233,38 +233,32 @@ namespace TaskRx
                 // Loop through tasks in groups
                 foreach (var task in group)
                 {
+                    // Skip auto tasks - they are not shown in the GUI
+                    if (task.Auto)
+                        continue;
+
                     // Initialize setup node
                     TreeNode setupTaskNode = new TreeNode(task.Name);
                     setupTaskNode.Tag = task;
                     specificPostTasks[task.Name] = task.PostTask;
 
-                    // Set task appearance based on Auto status
-                    if (task.Auto)
-                    {
-                        setupTaskNode.Checked = true;
-                        setupTaskNode.ForeColor = System.Drawing.Color.Gray;
-                        setupTaskNode.Text = task.Name + " (Auto)";
-                    }
-                    else if (task.Id == "SSH-Personal")
+                    if (task.Id == "SSH-Personal")
                     {
                         setupTaskNode.ForeColor = System.Drawing.Color.Gray;
                     }
 
-                    // Loop through ALL post tasks (including hidden ones)
+                    // Loop through non-auto post tasks
                     foreach (var postTask in task.PostTask)
                     {
+                        // Skip auto post tasks - they are not shown in the GUI
+                        if (postTask.Auto)
+                            continue;
+
                         // Initialize setup post task
                         TreeNode setupPostTaskNode = new TreeNode(postTask.Name);
                         setupPostTaskNode.Tag = postTask;
 
-                        // Set post task appearance based on Auto status
-                        if (postTask.Auto)
-                        {
-                            setupPostTaskNode.Checked = true;
-                            setupPostTaskNode.ForeColor = System.Drawing.Color.Gray;
-                            setupPostTaskNode.Text = postTask.Name + " (Auto)";
-                        }
-                        else if (postTask.Id == "PuTTY-Personal")
+                        if (postTask.Id == "PuTTY-Personal")
                         {
                             setupPostTaskNode.ForeColor = System.Drawing.Color.Gray;
                         }

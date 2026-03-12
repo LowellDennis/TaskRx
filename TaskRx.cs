@@ -23,18 +23,6 @@ namespace TaskRx
 
         private void TreeView_BeforeCheck(object? sender, TreeViewCancelEventArgs e)
         {
-            // Prevent checking/unchecking of auto tasks
-            if (e.Node?.Tag is MainTask mainTask && mainTask.Auto)
-            {
-                e.Cancel = true;
-                return;
-            }
-            
-            if (e.Node?.Tag is PostTask postTask && postTask.Auto)
-            {
-                e.Cancel = true;
-                return;
-            }
         }
 
         private void TreeView_AfterCheck(object? sender, TreeViewEventArgs e)
