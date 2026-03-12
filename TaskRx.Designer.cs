@@ -389,7 +389,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MinimumSize = new Size(787, 520);
             Name = "TaskRx";
-            Text = "TaskRx V1.4";
+            Text = "TaskRx V1.5";
             Load += TaskRx_Load;
             executionStrip.ResumeLayout(false);
             executionStrip.PerformLayout();
