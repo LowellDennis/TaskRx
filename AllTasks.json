@@ -75,7 +75,7 @@
     {
       "Id": "Prod-Office",
       "Group": "Productivity",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -85,7 +85,7 @@
       "PostTask": [
         {
           "Id": "Outlook-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -95,7 +95,7 @@
         },
         {
           "Id": "Teams-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -108,7 +108,7 @@
     {
       "Id": "Prod-Slack",
       "Group": "Productivity",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -118,7 +118,7 @@
       "PostTask": [
         {
           "Id": "Slack-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -131,7 +131,7 @@
     {
       "Id": "Editor-NotePad++",
       "Group": "Editor",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -141,7 +141,7 @@
       "PostTask": [
         {
           "Id": "Notepad-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -154,7 +154,7 @@
     {
       "Id": "Editor-SlickEdit",
       "Group": "Editor",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -164,7 +164,7 @@
       "PostTask": [
         {
           "Id": "SlickEdit-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -177,7 +177,7 @@
     {
       "Id": "Editor-VSCode",
       "Group": "Editor",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -187,7 +187,7 @@
       "PostTask": [
         {
           "Id": "VSCode-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -197,7 +197,7 @@
         },
         {
           "Id": "VSCode-C++",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -207,7 +207,7 @@
         },
         {
           "Id": "VSCode-CMake",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -217,7 +217,7 @@
         },
         {
           "Id": "VSCode-DoxyGen",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -227,7 +227,7 @@
         },
         {
           "Id": "VSCode-EDK2",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -237,7 +237,7 @@
         },
         {
           "Id": "VSCode-GitLens",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -247,7 +247,7 @@
         },
         {
           "Id": "VSCode-History",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -257,7 +257,7 @@
         },
         {
           "Id": "VSCode-Python",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -267,7 +267,7 @@
         },
         {
           "Id": "VSCode-SSH",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -277,7 +277,7 @@
         },
         {
           "Id": "VSCode-HPE-Copilot",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -290,7 +290,7 @@
     {
       "Id": "Editor-VSCommunity",
       "Group": "Editor",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -300,7 +300,7 @@
       "PostTask": [
         {
           "Id": "VSCommunity-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -313,7 +313,7 @@
     {
       "Id": "SSH-Work",
       "Group": "SSH",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -325,7 +325,7 @@
     {
       "Id": "SSH-Personal",
       "Group": "SSH",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -337,7 +337,7 @@
     {
       "Id": "SSH-Config",
       "Group": "SSH",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -349,7 +349,7 @@
     {
       "Id": "SSH-OpenSSH",
       "Group": "SSH",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -359,7 +359,7 @@
       "PostTask": [
         {
           "Id": "OpenSSH-Client",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -369,7 +369,7 @@
         },
         {
           "Id": "OpenSSH-Service",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -379,7 +379,7 @@
         },
         {
           "Id": "OpenSSH-Auto",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -392,7 +392,7 @@
     {
       "Id": "Util-010",
       "Group": "Utility",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -402,7 +402,7 @@
       "PostTask": [
         {
           "Id": "010-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -415,7 +415,7 @@
     {
       "Id": "Util-BeyondCompare",
       "Group": "Utility",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation ": true,
       "DevelopmentVM": true,
@@ -425,7 +425,7 @@
       "PostTask": [
         {
           "Id": "BeyondCompare-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -435,7 +435,7 @@
         },
         {
           "Id": "BeyondCompare-Git",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -448,7 +448,7 @@
     {
       "Id": "Util-PuTTY",
       "Group": "Utility",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -458,7 +458,7 @@
       "PostTask": [
         {
           "Id": "PuTTY-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": false,
@@ -468,7 +468,7 @@
         },
         {
           "Id": "PuTTY-Work",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -478,7 +478,7 @@
         },
         {
           "Id": "PuTTY-Personal",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -491,7 +491,7 @@
     {
       "Id": "Util-RDCMan",
       "Group": "Utility",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -501,7 +501,7 @@
       "PostTask": [
         {
           "Id": "RDCMan-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -514,7 +514,7 @@
     {
       "Id": "Util-WinSCP",
       "Group": "Utility",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -524,7 +524,7 @@
       "PostTask": [
         {
           "Id": "WinSCP-Pin",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -537,7 +537,7 @@
     {
       "Id": "VCS-Git",
       "Group": "Version Control",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -547,7 +547,7 @@
       "PostTask": [
         {
           "Id": "Git-Configure",
-          "Hidden": true,
+          "Auto": true,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -557,7 +557,7 @@
         },
         {
           "Id": "Git-GNext",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -567,7 +567,7 @@
         },
         {
           "Id": "Git-Gen12",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -577,7 +577,7 @@
         },
         {
           "Id": "Git-Gen11",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -587,7 +587,7 @@
         },
         {
           "Id": "Git-Gen10+",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -597,7 +597,7 @@
         },
         {
           "Id": "Git-Gen10",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -610,7 +610,7 @@
     {
       "Id": "VCS-TortoiseGit",
       "Group": "Version Control",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -622,7 +622,7 @@
     {
       "Id": "VCS-SVN",
       "Group": "Version Control",
-      "Hidden": false,
+      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -632,7 +632,7 @@
       "PostTask": [
         {
           "Id": "SVN-Gen9",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -642,7 +642,7 @@
         },
         {
           "Id": "SVN-Gen8",
-          "Hidden": false,
+          "Auto": false,
           "Workstation": false,
           "Workstationtion": false,
           "Jumpstationtion": false,
