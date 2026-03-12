@@ -77,6 +77,7 @@ namespace TaskRx
         public string Id { get; set; } = string.Empty;
         public string Group { get; set; } = string.Empty;
         public bool Auto { get; set; }
+        public bool RestartExplorer { get; set; }
         public bool Workstation { get; set; }
         public bool Jumpstation { get; set; }
         public bool DevelopmentVM { get; set; }

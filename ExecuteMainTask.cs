@@ -70,6 +70,12 @@ namespace TaskRx
                 {
                     await ExecutePostTask(postTask, task, runner);
                 }
+
+                // Restart Windows Explorer if the task requires it
+                if (task.RestartExplorer)
+                {
+                    await RestartWindowsExplorer();
+                }
             }
             catch (Exception ex)
             {
@@ -138,6 +144,36 @@ namespace TaskRx
                 // Log any exceptions
                 Log($"Error executing post-task: {ex.Message}");
                 Log($"Stack trace: {ex.StackTrace}");
+            }
+        }
+
+        /// <summary>
+        /// Restart Windows Explorer to pick up shell extension changes
+        /// </summary>
+        private async Task RestartWindowsExplorer()
+        {
+            try
+            {
+                Log("Restarting Windows Explorer...");
+                UpdateStatus("Restarting Windows Explorer...");
+
+                // Kill all explorer.exe processes
+                foreach (var process in Process.GetProcessesByName("explorer"))
+                {
+                    process.Kill();
+                    process.WaitForExit();
+                }
+
+                // Brief delay to allow the process to fully terminate
+                await Task.Delay(2000);
+
+                // Restart explorer
+                Process.Start("explorer.exe");
+                Log("Windows Explorer restarted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Log($"Error restarting Windows Explorer: {ex.Message}", true);
             }
         }
     }

@@ -10,7 +10,6 @@
       "Name": "Install/Update WinGet",
       "Command": "powershell.exe",
       "Arguments": "-ExecutionPolicy Bypass -File \"InstallWinGet.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Sys-LongPaths",
@@ -22,60 +21,50 @@
       "Name": "Enable Long Paths",
       "Command": "powershell.exe",
       "Arguments": "-ExecutionPolicy Bypass -File \"EnableLongPaths.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Sys-CmdExe",
       "Group": "System",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
       "Name": "Make Cmd.Exe Default Shell",
       "Command": "powershell.exe",
       "Arguments": "-Command \"Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon' -Name Shell -Value 'cmd.exe'\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Sys-Store",
       "Group": "System",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
       "Name": "Unpin Microsoft Store from Taskbar",
       "Command": "powershell.exe",
       "Arguments": " -File \".\\UnPinStore.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Sys-Ultimate",
       "Group": "System",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
       "Name": "Enable Ultimate Performace",
       "Command": "powershell.exe",
       "Arguments": " -File \".\\UltimatePerformance.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Sys-OptimizeVM",
       "Group": "System",
-      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": true,
       "Name": "Optimize Development VM",
       "Command": "powershell.exe",
       "Arguments": "-ExecutionPolicy Bypass -File \"Optimize-DevVM.ps1\"",
-      "PostTask": [ ]
     },
     {
       "Id": "Prod-Office",
       "Group": "Productivity",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -85,7 +74,6 @@
       "PostTask": [
         {
           "Id": "Outlook-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -95,7 +83,6 @@
         },
         {
           "Id": "Teams-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -108,7 +95,6 @@
     {
       "Id": "Prod-Slack",
       "Group": "Productivity",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -118,7 +104,6 @@
       "PostTask": [
         {
           "Id": "Slack-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -131,7 +116,7 @@
     {
       "Id": "Editor-NotePad++",
       "Group": "Editor",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -141,7 +126,6 @@
       "PostTask": [
         {
           "Id": "Notepad-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -154,7 +138,6 @@
     {
       "Id": "Editor-SlickEdit",
       "Group": "Editor",
-      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -164,7 +147,6 @@
       "PostTask": [
         {
           "Id": "SlickEdit-Pin",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -177,7 +159,7 @@
     {
       "Id": "Editor-VSCode",
       "Group": "Editor",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -187,7 +169,6 @@
       "PostTask": [
         {
           "Id": "VSCode-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -197,7 +178,6 @@
         },
         {
           "Id": "VSCode-C++",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -207,7 +187,6 @@
         },
         {
           "Id": "VSCode-CMake",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -217,7 +196,6 @@
         },
         {
           "Id": "VSCode-DoxyGen",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -227,7 +205,6 @@
         },
         {
           "Id": "VSCode-EDK2",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -237,7 +214,6 @@
         },
         {
           "Id": "VSCode-GitLens",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -247,7 +223,6 @@
         },
         {
           "Id": "VSCode-History",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -257,7 +232,6 @@
         },
         {
           "Id": "VSCode-Python",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -267,7 +241,6 @@
         },
         {
           "Id": "VSCode-SSH",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -277,7 +250,6 @@
         },
         {
           "Id": "VSCode-HPE-Copilot",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -290,7 +262,7 @@
     {
       "Id": "Editor-VSCommunity",
       "Group": "Editor",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -300,7 +272,6 @@
       "PostTask": [
         {
           "Id": "VSCommunity-Pin",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -313,43 +284,36 @@
     {
       "Id": "SSH-Work",
       "Group": "SSH",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
       "Name": "Work SSH Key",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHKey.cmd Work ${WORK_EMAIL}",
-      "PostTask": []
     },
     {
       "Id": "SSH-Personal",
       "Group": "SSH",
-      "Auto": false,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
       "Name": "Personal SSH Key",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHKey.cmd Personal ${PERSONAL_EMAIL}",
-      "PostTask": []
     },
     {
       "Id": "SSH-Config",
       "Group": "SSH",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
       "Name": "SSH Config File",
       "Command": "cmd.exe",
       "Arguments": "/c CreateSSHConfig.cmd ${WORK_EMAIL} ${PERSONAL_EMAIL}",
-      "PostTask": []
     },
     {
       "Id": "SSH-OpenSSH",
       "Group": "SSH",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -392,7 +356,7 @@
     {
       "Id": "Util-010",
       "Group": "Utility",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -402,7 +366,6 @@
       "PostTask": [
         {
           "Id": "010-Pin",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -415,9 +378,9 @@
     {
       "Id": "Util-BeyondCompare",
       "Group": "Utility",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
-      "Jumpstation ": true,
+      "Jumpstation": true,
       "DevelopmentVM": true,
       "Name": "Beyond Compare",
       "Command": "cmd.exe",
@@ -425,7 +388,6 @@
       "PostTask": [
         {
           "Id": "BeyondCompare-Pin",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -435,7 +397,6 @@
         },
         {
           "Id": "BeyondCompare-Git",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -448,7 +409,6 @@
     {
       "Id": "Util-PuTTY",
       "Group": "Utility",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -458,7 +418,6 @@
       "PostTask": [
         {
           "Id": "PuTTY-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": false,
@@ -491,7 +450,6 @@
     {
       "Id": "Util-RDCMan",
       "Group": "Utility",
-      "Auto": false,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -501,7 +459,6 @@
       "PostTask": [
         {
           "Id": "RDCMan-Pin",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -514,7 +471,7 @@
     {
       "Id": "Util-WinSCP",
       "Group": "Utility",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -524,7 +481,6 @@
       "PostTask": [
         {
           "Id": "WinSCP-Pin",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -537,7 +493,7 @@
     {
       "Id": "VCS-Git",
       "Group": "Version Control",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
@@ -557,7 +513,6 @@
         },
         {
           "Id": "Git-GNext",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -567,7 +522,6 @@
         },
         {
           "Id": "Git-Gen12",
-          "Auto": false,
           "Workstation": true,
           "Jumpstation": true,
           "DevelopmentVM": true,
@@ -577,7 +531,6 @@
         },
         {
           "Id": "Git-Gen11",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -587,7 +540,6 @@
         },
         {
           "Id": "Git-Gen10+",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -597,7 +549,6 @@
         },
         {
           "Id": "Git-Gen10",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -610,19 +561,18 @@
     {
       "Id": "VCS-TortoiseGit",
       "Group": "Version Control",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": true,
       "Jumpstation": true,
       "DevelopmentVM": true,
       "Name": "TortoiseGit",
       "Command": "cmd.exe",
       "Arguments": "/c RunWinget.cmd install TortoiseGit.TortoiseGit",
-      "PostTask": []
     },
     {
       "Id": "VCS-SVN",
       "Group": "Version Control",
-      "Auto": false,
+      "RestartExplorer": true,
       "Workstation": false,
       "Jumpstation": false,
       "DevelopmentVM": false,
@@ -632,7 +582,6 @@
       "PostTask": [
         {
           "Id": "SVN-Gen9",
-          "Auto": false,
           "Workstation": false,
           "Jumpstation": false,
           "DevelopmentVM": false,
@@ -642,10 +591,8 @@
         },
         {
           "Id": "SVN-Gen8",
-          "Auto": false,
           "Workstation": false,
-          "Workstationtion": false,
-          "Jumpstationtion": false,
+          "Jumpstation": false,
           "DevelopmentVM": false,
           "Name": "Gen8 Trunk",
           "Command": "cmd.exe",
