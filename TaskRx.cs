@@ -54,7 +54,6 @@ namespace TaskRx
                                       !string.IsNullOrEmpty(txtInitials.Text) &&
                                       !string.IsNullOrEmpty(txtDomain.Text) &&
                                       !string.IsNullOrEmpty(txtWork.Text) &&
-                                      !string.IsNullOrEmpty(txtPersonal.Text) &&
                                       !string.IsNullOrEmpty(txtBase.Text);
 
             // Check if any task is checked in both setup and update tab controls

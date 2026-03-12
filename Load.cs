@@ -245,6 +245,10 @@ namespace TaskRx
                         setupTaskNode.ForeColor = System.Drawing.Color.Gray;
                         setupTaskNode.Text = task.Name + " (Auto)";
                     }
+                    else if (task.Id == "SSH-Personal")
+                    {
+                        setupTaskNode.ForeColor = System.Drawing.Color.Gray;
+                    }
 
                     // Loop through ALL post tasks (including hidden ones)
                     foreach (var postTask in task.PostTask)
@@ -259,6 +263,10 @@ namespace TaskRx
                             setupPostTaskNode.Checked = true;
                             setupPostTaskNode.ForeColor = System.Drawing.Color.Gray;
                             setupPostTaskNode.Text = postTask.Name + " (Auto)";
+                        }
+                        else if (postTask.Id == "PuTTY-Personal")
+                        {
+                            setupPostTaskNode.ForeColor = System.Drawing.Color.Gray;
                         }
 
                         // Add setup post task
